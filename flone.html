@@ -416,43 +416,56 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .wx-fday{color:var(--sub);width:30px;font-weight:500}.wx-ficon{font-size:13px}.wx-fhi{font-weight:700;color:var(--acc2)}.wx-flo{color:var(--sub)}
 
 /* SETTINGS */
-.code-shell{display:flex;flex-direction:column;gap:8px;height:100%}
-.code-topbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.code-chip{padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);font-size:8px;color:var(--sub);font-weight:600;letter-spacing:.25px}
-.code-chip strong{color:#fff;font-weight:700}
-.code-chip-btn{background:rgba(37,99,235,.16);color:#bfdbfe;border-color:rgba(96,165,250,.25);cursor:pointer}
-.code-chip-btn.on{background:rgba(124,58,237,.25);color:#ede9fe;border-color:rgba(167,139,250,.35)}
+.code-shell{display:flex;flex-direction:column;gap:10px;height:100%}
+.code-hero{padding:12px;border-radius:20px;background:linear-gradient(135deg,rgba(37,99,235,.2),rgba(124,58,237,.24));border:1px solid rgba(148,163,184,.18);box-shadow:0 10px 28px rgba(15,23,42,.28),inset 0 1px 0 rgba(255,255,255,.08)}
+.code-hero-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.code-kicker{font-size:7px;text-transform:uppercase;letter-spacing:1px;color:#bfdbfe;font-weight:800}
+.code-title{font-size:15px;font-weight:800;letter-spacing:-.4px;margin-top:4px}
+.code-sub{font-size:8.5px;color:rgba(226,232,240,.76);line-height:1.45;margin-top:4px;max-width:155px}
+.code-toggle-stack{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.code-chip-btn{padding:6px 10px;border-radius:999px;background:rgba(15,23,42,.38);border:1px solid rgba(191,219,254,.18);font-size:8px;color:#dbeafe;font-weight:700;letter-spacing:.25px;cursor:pointer}
+.code-chip-btn.on{background:#ede9fe;color:#4c1d95;border-color:transparent}
+.code-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.code-chip{padding:8px 9px;border-radius:14px;background:rgba(15,23,42,.3);border:1px solid rgba(255,255,255,.08)}
+.code-chip span{display:block;font-size:6.5px;color:rgba(191,219,254,.8);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
+.code-chip strong{display:block;margin-top:4px;color:#fff;font-size:10px;font-weight:800}
+.code-toolbar{display:flex;flex-direction:column;gap:7px;padding:10px;border-radius:18px;background:rgba(15,23,42,.45);border:1px solid rgba(148,163,184,.12)}
+.code-toolbar-head{display:flex;justify-content:space-between;align-items:center;font-size:7.5px;color:var(--sub);text-transform:uppercase;letter-spacing:.9px;font-weight:700}
 .code-actions{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
 .code-actions::-webkit-scrollbar{display:none}
-.code-act{padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.06);color:#fff;font-size:8.5px;font-weight:600;cursor:pointer;white-space:nowrap}
-.code-search{display:flex;gap:6px}
-.code-search input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;padding:8px 10px;font-size:9px;outline:none}
-.code-main{display:grid;grid-template-columns:minmax(0,1fr) 28px;gap:8px;min-height:0;flex:1}
-.code-editor-wrap{display:flex;flex-direction:column;border-radius:16px;background:#0b1020;border:1px solid rgba(148,163,184,.16);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
-.code-tabs{display:flex;align-items:center;gap:6px;padding:7px 9px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);font-size:8px;color:var(--sub);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
-.code-dot{width:7px;height:7px;border-radius:50%}.code-dot.r{background:#f87171}.code-dot.y{background:#facc15}.code-dot.g{background:#4ade80}.code-file{margin-left:5px;color:#fff;font-size:8.5px;text-transform:none;letter-spacing:.1px}
-.code-stage{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
-.code-lines,.code-minimap{background:#0a0f1d;color:rgba(148,163,184,.68)}
-.code-lines{padding:10px 4px 10px 0;text-align:right;font-size:8px;line-height:1.55;user-select:none;overflow:hidden}
-.code-lines div{height:1.55em}.code-lines .active{color:#fff}
+.code-act{padding:7px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.06);color:#fff;font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap}
+.code-act.pri{background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;box-shadow:0 8px 18px rgba(59,130,246,.24)}
+.code-search{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.code-search input{min-width:0;background:#0f172a;border:1px solid rgba(148,163,184,.16);border-radius:12px;color:#fff;padding:9px 10px;font-size:9px;outline:none}
+.code-main{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:8px;min-height:0;flex:1}
+.code-editor-wrap{display:flex;flex-direction:column;border-radius:20px;background:linear-gradient(180deg,#0b1020,#111827);border:1px solid rgba(148,163,184,.18);overflow:hidden;box-shadow:0 16px 36px rgba(15,23,42,.35),inset 0 1px 0 rgba(255,255,255,.05)}
+.code-tabs{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:9px 11px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05)}
+.code-tab-main{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--sub);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.code-dot{width:7px;height:7px;border-radius:50%}.code-dot.r{background:#f87171}.code-dot.y{background:#facc15}.code-dot.g{background:#4ade80}
+.code-file{margin-left:4px;color:#fff;font-size:8.5px;text-transform:none;letter-spacing:.1px}
+.code-badge{padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.16);color:#bfdbfe;font-size:7px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.code-stage{position:relative;display:grid;grid-template-columns:32px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
+.code-lines,.code-minimap{background:#09101f;color:rgba(148,163,184,.68)}
+.code-lines{padding:12px 5px 12px 0;text-align:right;font-size:8px;line-height:1.6;user-select:none;overflow:hidden;border-right:1px solid rgba(255,255,255,.04)}
+.code-lines div{height:1.6em}.code-lines .active{color:#fff}
 .code-canvas{position:relative;min-height:0}
 .code-scroll{position:absolute;inset:0;overflow:auto}
 .code-scroll::-webkit-scrollbar{width:6px;height:6px}.code-scroll::-webkit-scrollbar-thumb{background:rgba(148,163,184,.22);border-radius:4px}
-.code-layer,.code-input{margin:0;min-height:100%;padding:10px 12px 14px;font-size:9px;line-height:1.55;white-space:pre;tab-size:2}
+.code-layer,.code-input{margin:0;min-height:100%;padding:12px 12px 16px;font-size:9px;line-height:1.6;white-space:pre;tab-size:2}
 .code-layer{pointer-events:none;color:#dbeafe;background:transparent}
-.code-layer .tag{color:#60a5fa}.code-layer .attr{color:#f9a8d4}.code-layer .str{color:#86efac}.code-layer .com{color:#64748b;font-style:italic}.code-layer .txt{color:#e2e8f0}.code-layer mark{background:rgba(250,204,21,.22);color:#fff;padding:0;border-radius:2px}
+.code-layer .tag{color:#7dd3fc}.code-layer .attr{color:#f9a8d4}.code-layer .str{color:#86efac}.code-layer .com{color:#64748b;font-style:italic}.code-layer .txt{color:#e2e8f0}.code-layer mark{background:rgba(250,204,21,.22);color:#fff;padding:0;border-radius:2px}
 .code-input{position:absolute;inset:0;background:transparent;color:transparent;caret-color:#fff;outline:none;overflow:hidden;resize:none;border:none}
 .code-input::selection{background:rgba(96,165,250,.28)}
-.code-status{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.03);font-size:8px;color:var(--sub);font-weight:600}
-.code-status span strong{color:#fff;font-weight:700}
-.code-miniwrap{border-radius:14px;background:#0b1020;border:1px solid rgba(148,163,184,.12);overflow:hidden;display:flex;align-items:stretch}
-.code-minimap{flex:1;position:relative;padding:8px 5px;font-family:'SFMono-Regular',Consolas,monospace;font-size:3.5px;line-height:1.35;white-space:pre;overflow:hidden}
-.code-minimap::after{content:'';position:absolute;right:2px;top:8px;bottom:8px;width:2px;border-radius:999px;background:linear-gradient(180deg,rgba(96,165,250,.18),rgba(124,58,237,.6),rgba(96,165,250,.18))}
-.code-preview{border-radius:16px;border:1px solid rgba(148,163,184,.12);background:rgba(255,255,255,.04);padding:10px;display:flex;flex-direction:column;gap:8px}
-.code-preview-head{display:flex;justify-content:space-between;align-items:center;font-size:8px;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;font-weight:700}
-.code-preview-frame{border-radius:12px;background:#fff;min-height:122px;overflow:auto;padding:10px;color:#0f172a;font-size:9px;line-height:1.45}
+.code-status{display:flex;justify-content:space-between;gap:8px;padding:9px 11px;border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.03);font-size:7.5px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.45px}
+.code-status span strong{color:#fff;font-weight:800}
+.code-miniwrap{border-radius:18px;background:#0b1020;border:1px solid rgba(148,163,184,.12);overflow:hidden;display:flex;align-items:stretch}
+.code-minimap{flex:1;position:relative;padding:10px 5px;font-family:'SFMono-Regular',Consolas,monospace;font-size:3.5px;line-height:1.35;white-space:pre;overflow:hidden}
+.code-minimap::after{content:'';position:absolute;right:2px;top:10px;bottom:10px;width:2px;border-radius:999px;background:linear-gradient(180deg,rgba(96,165,250,.18),rgba(124,58,237,.6),rgba(96,165,250,.18))}
+.code-preview{border-radius:20px;border:1px solid rgba(148,163,184,.12);background:rgba(255,255,255,.04);padding:10px;display:flex;flex-direction:column;gap:8px}
+.code-preview-head{display:flex;justify-content:space-between;align-items:center;font-size:7.5px;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;font-weight:800}
+.code-preview-frame{border-radius:14px;background:#fff;min-height:132px;overflow:auto;padding:10px;color:#0f172a;font-size:9px;line-height:1.45;box-shadow:inset 0 0 0 1px rgba(15,23,42,.05)}
 .code-preview-frame::-webkit-scrollbar{display:none}
-.code-hint{font-size:8px;color:var(--sub);line-height:1.45}
+.code-hint{font-size:8px;color:var(--sub);line-height:1.5}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -1010,27 +1023,44 @@ body.drag-mode .drop-overlay{opacity:1}
   <div class="ah"><button class="bk" id="bkCode">‹ Back</button><div class="atit">💻 Code Studio</div><button class="bk" id="codeWrapToggle">Wrap</button></div>
   <div class="ac">
     <div class="code-shell">
-      <div class="code-topbar">
-        <div class="code-chip">Mode <strong>HTML</strong></div>
-        <div class="code-chip">Lines <strong id="codeLineCount">1</strong></div>
-        <div class="code-chip">Words <strong id="codeWordCount">0</strong></div>
-        <button class="code-chip code-chip-btn on" id="codePreviewToggle">Preview</button>
+      <div class="code-hero">
+        <div class="code-hero-top">
+          <div>
+            <div class="code-kicker">Floating Phone IDE</div>
+            <div class="code-title">Edit HTML like a mini workstation.</div>
+            <div class="code-sub">A cleaner VS Code-style layout tuned for the phone: quick actions, context stats, minimap, and instant preview.</div>
+          </div>
+          <div class="code-toggle-stack">
+            <button class="code-chip-btn on" id="codePreviewToggle">Preview</button>
+          </div>
+        </div>
+        <div class="code-meta-grid">
+          <div class="code-chip"><span>Language</span><strong>HTML</strong></div>
+          <div class="code-chip"><span>Lines</span><strong id="codeLineCount">1</strong></div>
+          <div class="code-chip"><span>Words</span><strong id="codeWordCount">0</strong></div>
+        </div>
       </div>
-      <div class="code-actions">
-        <button class="code-act" id="codeFormatBtn">Format</button>
-        <button class="code-act" id="codeCommentBtn">Comment</button>
-        <button class="code-act" id="codeDuplicateBtn">Duplicate line</button>
-        <button class="code-act" id="codeGotoBtn">Go to line</button>
-        <button class="code-act" id="codeCopyBtn">Copy</button>
-        <button class="code-act" id="codeDownloadBtn">Export</button>
-      </div>
-      <div class="code-search">
-        <input id="codeFind" placeholder="Find in file…">
-        <input id="codeReplace" placeholder="Replace…">
+      <div class="code-toolbar">
+        <div class="code-toolbar-head"><span>Command deck</span><span>Shortcuts: ⌘/Ctrl+F · Alt+F · /</span></div>
+        <div class="code-actions">
+          <button class="code-act pri" id="codeFormatBtn">✨ Format</button>
+          <button class="code-act" id="codeCommentBtn">💬 Comment</button>
+          <button class="code-act" id="codeDuplicateBtn">📄 Duplicate</button>
+          <button class="code-act" id="codeGotoBtn">↕ Go to line</button>
+          <button class="code-act" id="codeCopyBtn">📋 Copy</button>
+          <button class="code-act" id="codeDownloadBtn">⬇ Export</button>
+        </div>
+        <div class="code-search">
+          <input id="codeFind" placeholder="Find in file…">
+          <input id="codeReplace" placeholder="Replace…">
+        </div>
       </div>
       <div class="code-main">
         <div class="code-editor-wrap">
-          <div class="code-tabs"><span class="code-dot r"></span><span class="code-dot y"></span><span class="code-dot g"></span><span class="code-file">floating-phone.html</span></div>
+          <div class="code-tabs">
+            <div class="code-tab-main"><span class="code-dot r"></span><span class="code-dot y"></span><span class="code-dot g"></span><span class="code-file">floating-phone.html</span></div>
+            <span class="code-badge">local</span>
+          </div>
           <div class="code-stage">
             <div class="code-lines" id="codeLines"></div>
             <div class="code-canvas">
