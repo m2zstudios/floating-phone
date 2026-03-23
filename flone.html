@@ -2530,14 +2530,43 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
   try{codeInput.value=localStorage.getItem(CODE_KEY)||defaultCode;}catch{codeInput.value=defaultCode;}
   function escCode(str){return str.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
   function safeRe(txt){return txt.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+  function markCode(str,term){
+    const escaped=escCode(str);
+    if(!term)return escaped;
+    return escaped.replace(new RegExp(safeRe(term),'gi'),m=>`<mark>${m}</mark>`);
+  }
+  function formatTag(tag,term=''){
+    if(tag.startsWith('<!--'))return `<span class="com">${markCode(tag,term)}</span>`;
+    const m=tag.match(/^(<\/?)([A-Za-z][\w:-]*)([\s\S]*?)(\/?>)$/);
+    if(!m)return markCode(tag,term);
+    const [,open,name,attrs,close]=m;
+    let out=`${markCode(open,term)}<span class="tag">${markCode(name,term)}</span>`;
+    const attrRe=/([^\s=/>]+)(\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/g;
+    let idx=0,match;
+    while((match=attrRe.exec(attrs))){
+      out+=markCode(attrs.slice(idx,match.index),term);
+      out+=`<span class="attr">${markCode(match[1],term)}</span>`;
+      if(match[2]){
+        const eq=match[2].match(/^(\s*=\s*)([\s\S]+)$/);
+        if(eq)out+=`${markCode(eq[1],term)}<span class="str">${markCode(eq[2],term)}</span>`;
+      }
+      idx=match.index+match[0].length;
+    }
+    out+=markCode(attrs.slice(idx),term);
+    out+=markCode(close,term);
+    return out;
+  }
   function highlightHTML(code,term=''){
-    let html=escCode(code);
-    html=html.replace(/(&lt;!--[\s\S]*?--&gt;)/g,'<span class="com">$1</span>');
-    html=html.replace(/(&lt;\/?)([A-Za-z][\w:-]*)/g,'$1<span class="tag">$2</span>');
-    html=html.replace(/\s([A-Za-z_:][\w:.-]*)(=)/g,' <span class="attr">$1</span>$2');
-    html=html.replace(/("[^"]*"|'[^']*')/g,'<span class="str">$1</span>');
-    if(term)html=html.replace(new RegExp(safeRe(term),'gi'),m=>`<mark>${m}</mark>`);
-    return html||'<span class="txt"> </span>';
+    const parts=[];
+    const tokenRe=/(<!--[\s\S]*?-->|<\/?[A-Za-z][^>]*>)/g;
+    let last=0,match;
+    while((match=tokenRe.exec(code))){
+      if(match.index>last)parts.push(`<span class="txt">${markCode(code.slice(last,match.index),term)}</span>`);
+      parts.push(formatTag(match[0],term));
+      last=match.index+match[0].length;
+    }
+    if(last<code.length)parts.push(`<span class="txt">${markCode(code.slice(last),term)}</span>`);
+    return parts.join('')||'<span class="txt"> </span>';
   }
   function countMatches(txt,term){
     if(!term)return 0;
