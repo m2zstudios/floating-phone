@@ -82,6 +82,7 @@ const APPS=[
   {id:'spotify', label:'Spotify', icon:'♪',  g:'#1db954,#158a3e'},
   {id:'reddit',  label:'Reddit',  icon:'👾', g:'#ff4500,#ff6534'},
   {id:'news',    label:'News',    icon:'📰', g:'#0f172a,#1e3a5f'},
+  {id:'code',    label:'Code',    icon:'💻', g:'#2563eb,#7c3aed'},
   {id:'settings',label:'Settings',icon:'⚙',  g:'#475569,#64748b'},
 ];
 
@@ -415,6 +416,43 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .wx-fday{color:var(--sub);width:30px;font-weight:500}.wx-ficon{font-size:13px}.wx-fhi{font-weight:700;color:var(--acc2)}.wx-flo{color:var(--sub)}
 
 /* SETTINGS */
+.code-shell{display:flex;flex-direction:column;gap:8px;height:100%}
+.code-topbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.code-chip{padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);font-size:8px;color:var(--sub);font-weight:600;letter-spacing:.25px}
+.code-chip strong{color:#fff;font-weight:700}
+.code-chip-btn{background:rgba(37,99,235,.16);color:#bfdbfe;border-color:rgba(96,165,250,.25);cursor:pointer}
+.code-chip-btn.on{background:rgba(124,58,237,.25);color:#ede9fe;border-color:rgba(167,139,250,.35)}
+.code-actions{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.code-actions::-webkit-scrollbar{display:none}
+.code-act{padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.06);color:#fff;font-size:8.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.code-search{display:flex;gap:6px}
+.code-search input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;padding:8px 10px;font-size:9px;outline:none}
+.code-main{display:grid;grid-template-columns:minmax(0,1fr) 28px;gap:8px;min-height:0;flex:1}
+.code-editor-wrap{display:flex;flex-direction:column;border-radius:16px;background:#0b1020;border:1px solid rgba(148,163,184,.16);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.code-tabs{display:flex;align-items:center;gap:6px;padding:7px 9px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05);font-size:8px;color:var(--sub);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.code-dot{width:7px;height:7px;border-radius:50%}.code-dot.r{background:#f87171}.code-dot.y{background:#facc15}.code-dot.g{background:#4ade80}.code-file{margin-left:5px;color:#fff;font-size:8.5px;text-transform:none;letter-spacing:.1px}
+.code-stage{position:relative;display:grid;grid-template-columns:30px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
+.code-lines,.code-minimap{background:#0a0f1d;color:rgba(148,163,184,.68)}
+.code-lines{padding:10px 4px 10px 0;text-align:right;font-size:8px;line-height:1.55;user-select:none;overflow:hidden}
+.code-lines div{height:1.55em}.code-lines .active{color:#fff}
+.code-canvas{position:relative;min-height:0}
+.code-scroll{position:absolute;inset:0;overflow:auto}
+.code-scroll::-webkit-scrollbar{width:6px;height:6px}.code-scroll::-webkit-scrollbar-thumb{background:rgba(148,163,184,.22);border-radius:4px}
+.code-layer,.code-input{margin:0;min-height:100%;padding:10px 12px 14px;font-size:9px;line-height:1.55;white-space:pre;tab-size:2}
+.code-layer{pointer-events:none;color:#dbeafe;background:transparent}
+.code-layer .tag{color:#60a5fa}.code-layer .attr{color:#f9a8d4}.code-layer .str{color:#86efac}.code-layer .com{color:#64748b;font-style:italic}.code-layer .txt{color:#e2e8f0}.code-layer mark{background:rgba(250,204,21,.22);color:#fff;padding:0;border-radius:2px}
+.code-input{position:absolute;inset:0;background:transparent;color:transparent;caret-color:#fff;outline:none;overflow:hidden;resize:none;border:none}
+.code-input::selection{background:rgba(96,165,250,.28)}
+.code-status{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.03);font-size:8px;color:var(--sub);font-weight:600}
+.code-status span strong{color:#fff;font-weight:700}
+.code-miniwrap{border-radius:14px;background:#0b1020;border:1px solid rgba(148,163,184,.12);overflow:hidden;display:flex;align-items:stretch}
+.code-minimap{flex:1;position:relative;padding:8px 5px;font-family:'SFMono-Regular',Consolas,monospace;font-size:3.5px;line-height:1.35;white-space:pre;overflow:hidden}
+.code-minimap::after{content:'';position:absolute;right:2px;top:8px;bottom:8px;width:2px;border-radius:999px;background:linear-gradient(180deg,rgba(96,165,250,.18),rgba(124,58,237,.6),rgba(96,165,250,.18))}
+.code-preview{border-radius:16px;border:1px solid rgba(148,163,184,.12);background:rgba(255,255,255,.04);padding:10px;display:flex;flex-direction:column;gap:8px}
+.code-preview-head{display:flex;justify-content:space-between;align-items:center;font-size:8px;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;font-weight:700}
+.code-preview-frame{border-radius:12px;background:#fff;min-height:122px;overflow:auto;padding:10px;color:#0f172a;font-size:9px;line-height:1.45}
+.code-preview-frame::-webkit-scrollbar{display:none}
+.code-hint{font-size:8px;color:var(--sub);line-height:1.45}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -967,6 +1005,54 @@ body.drag-mode .drop-overlay{opacity:1}
   </div>
 </div>
 
+<!-- CODE -->
+<div class="app" id="aCode">
+  <div class="ah"><button class="bk" id="bkCode">‹ Back</button><div class="atit">💻 Code Studio</div><button class="bk" id="codeWrapToggle">Wrap</button></div>
+  <div class="ac">
+    <div class="code-shell">
+      <div class="code-topbar">
+        <div class="code-chip">Mode <strong>HTML</strong></div>
+        <div class="code-chip">Lines <strong id="codeLineCount">1</strong></div>
+        <div class="code-chip">Words <strong id="codeWordCount">0</strong></div>
+        <button class="code-chip code-chip-btn on" id="codePreviewToggle">Preview</button>
+      </div>
+      <div class="code-actions">
+        <button class="code-act" id="codeFormatBtn">Format</button>
+        <button class="code-act" id="codeCommentBtn">Comment</button>
+        <button class="code-act" id="codeDuplicateBtn">Duplicate line</button>
+        <button class="code-act" id="codeGotoBtn">Go to line</button>
+        <button class="code-act" id="codeCopyBtn">Copy</button>
+        <button class="code-act" id="codeDownloadBtn">Export</button>
+      </div>
+      <div class="code-search">
+        <input id="codeFind" placeholder="Find in file…">
+        <input id="codeReplace" placeholder="Replace…">
+      </div>
+      <div class="code-main">
+        <div class="code-editor-wrap">
+          <div class="code-tabs"><span class="code-dot r"></span><span class="code-dot y"></span><span class="code-dot g"></span><span class="code-file">floating-phone.html</span></div>
+          <div class="code-stage">
+            <div class="code-lines" id="codeLines"></div>
+            <div class="code-canvas">
+              <div class="code-scroll" id="codeScroll">
+                <pre class="code-layer" id="codeHighlight"></pre>
+                <textarea spellcheck="false" class="code-input" id="codeInput"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="code-status"><span id="codeCursor">Ln <strong>1</strong>, Col <strong>1</strong></span><span id="codeStatusMeta">UTF-8 · Spaces: 2 · HTML · Wrap</span></div>
+        </div>
+        <div class="code-miniwrap"><pre class="code-minimap" id="codeMini"></pre></div>
+      </div>
+      <div class="code-preview" id="codePreviewPanel">
+        <div class="code-preview-head"><span>Live preview</span><span id="codeMatchCount">0 matches</span></div>
+        <div class="code-preview-frame" id="codePreviewFrame"></div>
+        <div class="code-hint">Built for the floating phone: line numbers, HTML tag highlighting, search/replace, formatting, duplicate line, quick comments, minimap, word count, and live preview — all without external APIs.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div class="app" id="aSettings">
   <div class="ah"><button class="bk" id="bkSet">‹ Back</button><div class="atit">⚙ Settings</div></div>
@@ -1482,7 +1568,7 @@ body.drag-mode .drop-overlay{opacity:1}
   const bkMap={bkTimer:'timer',bkNotes:'notes',bkWeather:'weather',bkMusic:'music',bkCalc:'calc',
     bkCal:'calendar',bkTodo:'todo',bkCon:'contacts',bkGal:'gallery',bkSW:'stopwatch',
     bkQR:'qr',bkHlth:'health',bkAi:'ai',bkCrypto:'crypto',
-    bkYT:'youtube',bkSpotify:'spotify',bkReddit:'reddit',bkNews:'news',bkSet:'settings'};
+    bkYT:'youtube',bkSpotify:'spotify',bkReddit:'reddit',bkNews:'news',bkCode:'code',bkSet:'settings'};
   Object.keys(bkMap).forEach(k=>{const b=D.getElementById(k);if(b)b.onclick=goHome;});
 
   /* ── Widget taps ── */
@@ -2386,6 +2472,178 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
   });
   D.getElementById('newsRefresh').onclick=()=>loadNews();
 
+  /* ══ CODE STUDIO ══ */
+  const CODE_KEY='pipphone_code_doc';
+  const defaultCode=`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Floating Phone Studio</title>
+  </head>
+  <body>
+    <main>
+      <h1>Hello from inside the phone</h1>
+      <p>Edit this HTML and watch the preview update live.</p>
+    </main>
+  </body>
+</html>`;
+  const codeInput=D.getElementById('codeInput');
+  const codeHighlight=D.getElementById('codeHighlight');
+  const codeLines=D.getElementById('codeLines');
+  const codeMini=D.getElementById('codeMini');
+  const codeScroll=D.getElementById('codeScroll');
+  const codePreviewFrame=D.getElementById('codePreviewFrame');
+  const codeFind=D.getElementById('codeFind');
+  const codeReplace=D.getElementById('codeReplace');
+  const codePreviewPanel=D.getElementById('codePreviewPanel');
+  let codePreviewOn=true, codeWrap=true;
+  try{codeInput.value=localStorage.getItem(CODE_KEY)||defaultCode;}catch{codeInput.value=defaultCode;}
+  function escCode(str){return str.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+  function safeRe(txt){return txt.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+  function highlightHTML(code,term=''){
+    let html=escCode(code);
+    html=html.replace(/(&lt;!--[\s\S]*?--&gt;)/g,'<span class="com">$1</span>');
+    html=html.replace(/(&lt;\/?)([A-Za-z][\w:-]*)/g,'$1<span class="tag">$2</span>');
+    html=html.replace(/\s([A-Za-z_:][\w:.-]*)(=)/g,' <span class="attr">$1</span>$2');
+    html=html.replace(/("[^"]*"|'[^']*')/g,'<span class="str">$1</span>');
+    if(term)html=html.replace(new RegExp(safeRe(term),'gi'),m=>`<mark>${m}</mark>`);
+    return html||'<span class="txt"> </span>';
+  }
+  function countMatches(txt,term){
+    if(!term)return 0;
+    const m=txt.match(new RegExp(safeRe(term),'gi'));
+    return m?m.length:0;
+  }
+  function updateCursor(){
+    const pos=codeInput.selectionStart;
+    const pre=codeInput.value.slice(0,pos);
+    const ln=(pre.match(/\n/g)||[]).length+1;
+    const col=pos-(pre.lastIndexOf('\n'))||1;
+    D.getElementById('codeCursor').innerHTML=`Ln <strong>${ln}</strong>, Col <strong>${col}</strong>`;
+  }
+  function syncScroll(){
+    codeHighlight.scrollTop=codeInput.scrollTop;
+    codeHighlight.scrollLeft=codeInput.scrollLeft;
+    codeLines.scrollTop=codeInput.scrollTop;
+    const max=Math.max(1,codeInput.scrollHeight-codeInput.clientHeight);
+    const pct=codeInput.scrollTop/max;
+    codeMini.style.transform=`translateY(${-pct*45}px)`;
+  }
+  function renderCode(){
+    const value=codeInput.value;
+    const lines=value.split('\n');
+    const currentLine=(value.slice(0,codeInput.selectionStart).match(/\n/g)||[]).length+1;
+    codeHighlight.innerHTML=highlightHTML(value,codeFind.value.trim());
+    codeLines.innerHTML=lines.map((_,i)=>`<div class="${i+1===currentLine?'active':''}">${i+1}</div>`).join('');
+    codeMini.textContent=value;
+    codePreviewFrame.innerHTML=value;
+    D.getElementById('codeLineCount').textContent=lines.length;
+    D.getElementById('codeWordCount').textContent=(value.trim().match(/\S+/g)||[]).length;
+    D.getElementById('codeMatchCount').textContent=`${countMatches(value,codeFind.value.trim())} matches`;
+    updateCursor();
+    syncScroll();
+    try{localStorage.setItem(CODE_KEY,value);}catch{}
+  }
+  function setWrap(on){
+    codeWrap=on;
+    const ws=on?'pre-wrap':'pre';
+    [codeInput,codeHighlight].forEach(el=>el.style.whiteSpace=ws);
+    D.getElementById('codeWrapToggle').textContent=on?'Wrap':'No wrap';
+    D.getElementById('codeStatusMeta').textContent=`UTF-8 · Spaces: 2 · HTML${on?' · Wrap':''}`;
+  }
+  function formatHTML(){
+    const src=codeInput.value.split('\n').map(l=>l.trim()).filter((line,idx,arr)=>line||idx<arr.length-1);
+    let indent=0;
+    const out=[];
+    src.forEach(line=>{
+      if(/^<\//.test(line))indent=Math.max(0,indent-1);
+      out.push('  '.repeat(indent)+line);
+      if(/^<(?!\/|!)([^>]+[^/])>$/.test(line)&&!/<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)(\s|>|\/)/i.test(line))indent++;
+    });
+    codeInput.value=out.join('\n');
+    renderCode();
+  }
+  function replaceAll(){
+    const q=codeFind.value;
+    if(!q)return;
+    codeInput.value=codeInput.value.split(q).join(codeReplace.value);
+    renderCode();
+  }
+  function duplicateLine(){
+    const v=codeInput.value;
+    const pos=codeInput.selectionStart;
+    const start=v.lastIndexOf('\n',Math.max(0,pos-1))+1;
+    let end=v.indexOf('\n',pos);
+    if(end<0)end=v.length;
+    const line=v.slice(start,end);
+    const sep=end<v.length?'\n':'';
+    codeInput.value=v.slice(0,end)+sep+line+v.slice(end);
+    codeInput.selectionStart=codeInput.selectionEnd=end+sep.length+line.length;
+    renderCode();
+  }
+  function toggleComment(){
+    const start=codeInput.selectionStart,end=codeInput.selectionEnd;
+    if(start!==end){
+      const sel=codeInput.value.slice(start,end).trim()||'comment';
+      codeInput.setRangeText(sel.startsWith('<!--')&&sel.endsWith('-->')?sel.replace(/^<!--\s?/,'').replace(/\s?-->$/,''):`<!-- ${sel} -->`,start,end,'end');
+    }else{
+      const lineIndex=(codeInput.value.slice(0,start).match(/\n/g)||[]).length;
+      const line=codeInput.value.split('\n')[lineIndex]||'';
+      const lineStart=codeInput.value.lastIndexOf('\n',Math.max(0,start-1))+1;
+      const lineEnd=lineStart+line.length;
+      const trimmed=line.trim()||'comment';
+      codeInput.setRangeText(trimmed.startsWith('<!--')&&trimmed.endsWith('-->')?trimmed.replace(/^<!--\s?/,'').replace(/\s?-->$/,''):`<!-- ${trimmed} -->`,lineStart,lineEnd,'end');
+    }
+    renderCode();
+  }
+  codeInput.addEventListener('input',renderCode);
+  codeInput.addEventListener('scroll',syncScroll);
+  codeInput.addEventListener('click',renderCode);
+  codeInput.addEventListener('keyup',updateCursor);
+  codeInput.addEventListener('keydown',e=>{
+    if(e.key==='Tab'){e.preventDefault();const s=codeInput.selectionStart;codeInput.setRangeText('  ',s,s,'end');renderCode();}
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='f'){e.preventDefault();codeFind.focus();codeFind.select();}
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='h'){e.preventDefault();replaceAll();}
+    if((e.metaKey||e.ctrlKey)&&e.altKey&&e.key.toLowerCase()==='f'){e.preventDefault();formatHTML();}
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='d'){e.preventDefault();duplicateLine();}
+    if((e.metaKey||e.ctrlKey)&&e.key==='/'){e.preventDefault();toggleComment();}
+  });
+  codeFind.addEventListener('input',renderCode);
+  codeReplace.addEventListener('keydown',e=>{if(e.key==='Enter')replaceAll();});
+  D.getElementById('codeFormatBtn').onclick=formatHTML;
+  D.getElementById('codeCommentBtn').onclick=toggleComment;
+  D.getElementById('codeDuplicateBtn').onclick=duplicateLine;
+  D.getElementById('codeGotoBtn').onclick=()=>{
+    const n=parseInt(prompt('Go to line number:','1')||'',10);
+    if(!n)return;
+    const lines=codeInput.value.split('\n');
+    let idx=0;
+    for(let i=0;i<Math.min(n-1,lines.length);i++)idx+=lines[i].length+1;
+    codeInput.focus();
+    codeInput.selectionStart=codeInput.selectionEnd=idx;
+    renderCode();
+  };
+  D.getElementById('codeCopyBtn').onclick=async()=>{
+    try{await navigator.clipboard.writeText(codeInput.value);showNotif({icon:'💻',title:'Code copied',body:'Editor contents copied to clipboard'});}
+    catch{showNotif({icon:'⚠️',title:'Clipboard unavailable',body:'Copy is blocked in this context'});}
+  };
+  D.getElementById('codeDownloadBtn').onclick=()=>{
+    const a=D.createElement('a');
+    a.href=URL.createObjectURL(new Blob([codeInput.value],{type:'text/html'}));
+    a.download='floating-phone.html';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),500);
+  };
+  D.getElementById('codeWrapToggle').onclick=()=>{setWrap(!codeWrap);renderCode();};
+  D.getElementById('codePreviewToggle').onclick=function(){
+    codePreviewOn=!codePreviewOn;
+    codePreviewPanel.style.display=codePreviewOn?'flex':'none';
+    this.classList.toggle('on',codePreviewOn);
+  };
+  codeScroll.addEventListener('pointerdown',()=>codeInput.focus());
+  setWrap(true);
+  renderCode();
+
   /* ══ onOpen / onClose ══ */
   let ytLoaded=false, rdLoaded=false, newsLoaded=false, spTab='charts';
   function onOpen(id){
@@ -2397,6 +2655,7 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
     if(id==='spotify')loadSpotify(spTab);
     if(id==='reddit'&&!rdLoaded){rdLoaded=true;loadReddit();}
     if(id==='news'&&!newsLoaded){newsLoaded=true;loadNews();}
+    if(id==='code')setTimeout(()=>codeInput.focus(),80);
   }
   function onClose(id){
     if(id==='music'&&mPlaying){/* keep playing */}
