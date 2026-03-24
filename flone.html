@@ -416,56 +416,33 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .wx-fday{color:var(--sub);width:30px;font-weight:500}.wx-ficon{font-size:13px}.wx-fhi{font-weight:700;color:var(--acc2)}.wx-flo{color:var(--sub)}
 
 /* SETTINGS */
-.code-shell{display:flex;flex-direction:column;gap:10px;height:100%}
-.code-hero{padding:12px;border-radius:20px;background:linear-gradient(135deg,rgba(37,99,235,.2),rgba(124,58,237,.24));border:1px solid rgba(148,163,184,.18);box-shadow:0 10px 28px rgba(15,23,42,.28),inset 0 1px 0 rgba(255,255,255,.08)}
-.code-hero-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.code-kicker{font-size:7px;text-transform:uppercase;letter-spacing:1px;color:#bfdbfe;font-weight:800}
-.code-title{font-size:15px;font-weight:800;letter-spacing:-.4px;margin-top:4px}
-.code-sub{font-size:8.5px;color:rgba(226,232,240,.76);line-height:1.45;margin-top:4px;max-width:155px}
-.code-toggle-stack{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-.code-chip-btn{padding:6px 10px;border-radius:999px;background:rgba(15,23,42,.38);border:1px solid rgba(191,219,254,.18);font-size:8px;color:#dbeafe;font-weight:700;letter-spacing:.25px;cursor:pointer}
-.code-chip-btn.on{background:#ede9fe;color:#4c1d95;border-color:transparent}
-.code-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
-.code-chip{padding:8px 9px;border-radius:14px;background:rgba(15,23,42,.3);border:1px solid rgba(255,255,255,.08)}
-.code-chip span{display:block;font-size:6.5px;color:rgba(191,219,254,.8);text-transform:uppercase;letter-spacing:.8px;font-weight:700}
-.code-chip strong{display:block;margin-top:4px;color:#fff;font-size:10px;font-weight:800}
-.code-toolbar{display:flex;flex-direction:column;gap:7px;padding:10px;border-radius:18px;background:rgba(15,23,42,.45);border:1px solid rgba(148,163,184,.12)}
-.code-toolbar-head{display:flex;justify-content:space-between;align-items:center;font-size:7.5px;color:var(--sub);text-transform:uppercase;letter-spacing:.9px;font-weight:700}
-.code-actions{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
-.code-actions::-webkit-scrollbar{display:none}
-.code-act{padding:7px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.06);color:#fff;font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap}
-.code-act.pri{background:linear-gradient(135deg,#2563eb,#7c3aed);border:none;box-shadow:0 8px 18px rgba(59,130,246,.24)}
-.code-search{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.code-search input{min-width:0;background:#0f172a;border:1px solid rgba(148,163,184,.16);border-radius:12px;color:#fff;padding:9px 10px;font-size:9px;outline:none}
-.code-main{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:8px;min-height:0;flex:1}
-.code-editor-wrap{display:flex;flex-direction:column;border-radius:20px;background:linear-gradient(180deg,#0b1020,#111827);border:1px solid rgba(148,163,184,.18);overflow:hidden;box-shadow:0 16px 36px rgba(15,23,42,.35),inset 0 1px 0 rgba(255,255,255,.05)}
-.code-tabs{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:9px 11px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05)}
-.code-tab-main{display:flex;align-items:center;gap:6px;font-size:8px;color:var(--sub);font-weight:700;letter-spacing:.3px;text-transform:uppercase}
-.code-dot{width:7px;height:7px;border-radius:50%}.code-dot.r{background:#f87171}.code-dot.y{background:#facc15}.code-dot.g{background:#4ade80}
-.code-file{margin-left:4px;color:#fff;font-size:8.5px;text-transform:none;letter-spacing:.1px}
-.code-badge{padding:4px 8px;border-radius:999px;background:rgba(96,165,250,.16);color:#bfdbfe;font-size:7px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
-.code-stage{position:relative;display:grid;grid-template-columns:32px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
-.code-lines,.code-minimap{background:#09101f;color:rgba(148,163,184,.68)}
-.code-lines{padding:12px 5px 12px 0;text-align:right;font-size:8px;line-height:1.6;user-select:none;overflow:hidden;border-right:1px solid rgba(255,255,255,.04)}
+.code-shell{display:flex;flex-direction:column;height:100%;gap:10px}
+.code-file-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px}
+.code-file-tabs::-webkit-scrollbar{display:none}
+.code-file-tab{padding:7px 11px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(226,232,240,.82);font-size:8.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.18s}
+.code-file-tab.active{background:linear-gradient(135deg,#2563eb,#3b82f6);border-color:transparent;color:#fff;box-shadow:0 8px 20px rgba(37,99,235,.26)}
+.code-workspace{display:grid;grid-template-rows:minmax(0,1fr) 168px;gap:10px;flex:1;min-height:0}
+.code-panel{border-radius:20px;background:linear-gradient(180deg,#0b1020,#111827);border:1px solid rgba(148,163,184,.16);overflow:hidden;box-shadow:0 14px 30px rgba(15,23,42,.32),inset 0 1px 0 rgba(255,255,255,.04)}
+.code-panel-head{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05)}
+.code-panel-title{font-size:8px;text-transform:uppercase;letter-spacing:.9px;color:var(--sub);font-weight:800}
+.code-panel-meta{font-size:7.5px;color:rgba(226,232,240,.62);font-weight:700}
+.code-editor-wrap{display:flex;flex-direction:column;height:100%}
+.code-stage{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
+.code-lines{padding:12px 5px 12px 0;text-align:right;font-size:8px;line-height:1.6;user-select:none;overflow:hidden;background:#09101f;color:rgba(148,163,184,.68);border-right:1px solid rgba(255,255,255,.04)}
 .code-lines div{height:1.6em}.code-lines .active{color:#fff}
-.code-canvas{position:relative;min-height:0}
+.code-canvas{position:relative;min-height:0;background:#0b1020}
 .code-scroll{position:absolute;inset:0;overflow:auto}
-.code-scroll::-webkit-scrollbar{width:6px;height:6px}.code-scroll::-webkit-scrollbar-thumb{background:rgba(148,163,184,.22);border-radius:4px}
+.code-scroll::-webkit-scrollbar,.code-preview-frame::-webkit-scrollbar{width:6px;height:6px}
+.code-scroll::-webkit-scrollbar-thumb,.code-preview-frame::-webkit-scrollbar-thumb{background:rgba(148,163,184,.22);border-radius:4px}
 .code-layer,.code-input{margin:0;min-height:100%;padding:12px 12px 16px;font-size:9px;line-height:1.6;white-space:pre;tab-size:2}
 .code-layer{pointer-events:none;color:#dbeafe;background:transparent}
-.code-layer .tag{color:#7dd3fc}.code-layer .attr{color:#f9a8d4}.code-layer .str{color:#86efac}.code-layer .com{color:#64748b;font-style:italic}.code-layer .txt{color:#e2e8f0}.code-layer mark{background:rgba(250,204,21,.22);color:#fff;padding:0;border-radius:2px}
+.code-layer .tag{color:#7dd3fc}.code-layer .attr{color:#f9a8d4}.code-layer .str{color:#86efac}.code-layer .com{color:#64748b;font-style:italic}.code-layer .txt{color:#e2e8f0}.code-layer .kw{color:#c4b5fd}.code-layer .num{color:#fca5a5}
 .code-input{position:absolute;inset:0;background:transparent;color:transparent;caret-color:#fff;outline:none;overflow:hidden;resize:none;border:none}
 .code-input::selection{background:rgba(96,165,250,.28)}
 .code-status{display:flex;justify-content:space-between;gap:8px;padding:9px 11px;border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.03);font-size:7.5px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.45px}
 .code-status span strong{color:#fff;font-weight:800}
-.code-miniwrap{border-radius:18px;background:#0b1020;border:1px solid rgba(148,163,184,.12);overflow:hidden;display:flex;align-items:stretch}
-.code-minimap{flex:1;position:relative;padding:10px 5px;font-family:'SFMono-Regular',Consolas,monospace;font-size:3.5px;line-height:1.35;white-space:pre;overflow:hidden}
-.code-minimap::after{content:'';position:absolute;right:2px;top:10px;bottom:10px;width:2px;border-radius:999px;background:linear-gradient(180deg,rgba(96,165,250,.18),rgba(124,58,237,.6),rgba(96,165,250,.18))}
-.code-preview{border-radius:20px;border:1px solid rgba(148,163,184,.12);background:rgba(255,255,255,.04);padding:10px;display:flex;flex-direction:column;gap:8px}
-.code-preview-head{display:flex;justify-content:space-between;align-items:center;font-size:7.5px;color:var(--sub);text-transform:uppercase;letter-spacing:.8px;font-weight:800}
-.code-preview-frame{border-radius:14px;background:#fff;min-height:132px;overflow:auto;padding:10px;color:#0f172a;font-size:9px;line-height:1.45;box-shadow:inset 0 0 0 1px rgba(15,23,42,.05)}
-.code-preview-frame::-webkit-scrollbar{display:none}
-.code-hint{font-size:8px;color:var(--sub);line-height:1.5}
+.code-preview{display:flex;flex-direction:column;height:100%}
+.code-preview-frame{flex:1;background:#fff;border:none;width:100%}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -1020,64 +997,38 @@ body.drag-mode .drop-overlay{opacity:1}
 
 <!-- CODE -->
 <div class="app" id="aCode">
-  <div class="ah"><button class="bk" id="bkCode">‹ Back</button><div class="atit">💻 Code Studio</div><button class="bk" id="codeWrapToggle">Wrap</button></div>
+  <div class="ah"><button class="bk" id="bkCode">‹ Back</button><div class="atit">💻 Code Studio</div><button class="bk" id="codeRunBtn" style="color:#60a5fa">Run</button></div>
   <div class="ac">
     <div class="code-shell">
-      <div class="code-hero">
-        <div class="code-hero-top">
-          <div>
-            <div class="code-kicker">Floating Phone IDE</div>
-            <div class="code-title">Edit HTML like a mini workstation.</div>
-            <div class="code-sub">A cleaner VS Code-style layout tuned for the phone: quick actions, context stats, minimap, and instant preview.</div>
+      <div class="code-file-tabs" id="codeTabs"></div>
+      <div class="code-workspace">
+        <div class="code-panel">
+          <div class="code-panel-head">
+            <span class="code-panel-title" id="codePanelTitle">index.html</span>
+            <span class="code-panel-meta" id="codePanelMeta">HTML · 1 line</span>
           </div>
-          <div class="code-toggle-stack">
-            <button class="code-chip-btn on" id="codePreviewToggle">Preview</button>
-          </div>
-        </div>
-        <div class="code-meta-grid">
-          <div class="code-chip"><span>Language</span><strong>HTML</strong></div>
-          <div class="code-chip"><span>Lines</span><strong id="codeLineCount">1</strong></div>
-          <div class="code-chip"><span>Words</span><strong id="codeWordCount">0</strong></div>
-        </div>
-      </div>
-      <div class="code-toolbar">
-        <div class="code-toolbar-head"><span>Command deck</span><span>Shortcuts: ⌘/Ctrl+F · Alt+F · /</span></div>
-        <div class="code-actions">
-          <button class="code-act pri" id="codeFormatBtn">✨ Format</button>
-          <button class="code-act" id="codeCommentBtn">💬 Comment</button>
-          <button class="code-act" id="codeDuplicateBtn">📄 Duplicate</button>
-          <button class="code-act" id="codeGotoBtn">↕ Go to line</button>
-          <button class="code-act" id="codeCopyBtn">📋 Copy</button>
-          <button class="code-act" id="codeDownloadBtn">⬇ Export</button>
-        </div>
-        <div class="code-search">
-          <input id="codeFind" placeholder="Find in file…">
-          <input id="codeReplace" placeholder="Replace…">
-        </div>
-      </div>
-      <div class="code-main">
-        <div class="code-editor-wrap">
-          <div class="code-tabs">
-            <div class="code-tab-main"><span class="code-dot r"></span><span class="code-dot y"></span><span class="code-dot g"></span><span class="code-file">floating-phone.html</span></div>
-            <span class="code-badge">local</span>
-          </div>
-          <div class="code-stage">
-            <div class="code-lines" id="codeLines"></div>
-            <div class="code-canvas">
-              <div class="code-scroll" id="codeScroll">
-                <pre class="code-layer" id="codeHighlight"></pre>
-                <textarea spellcheck="false" class="code-input" id="codeInput"></textarea>
+          <div class="code-editor-wrap">
+            <div class="code-stage">
+              <div class="code-lines" id="codeLines"></div>
+              <div class="code-canvas">
+                <div class="code-scroll" id="codeScroll">
+                  <pre class="code-layer" id="codeHighlight"></pre>
+                  <textarea spellcheck="false" class="code-input" id="codeInput"></textarea>
+                </div>
               </div>
             </div>
+            <div class="code-status"><span id="codeCursor">Ln <strong>1</strong>, Col <strong>1</strong></span><span id="codeStatusMeta">HTML</span></div>
           </div>
-          <div class="code-status"><span id="codeCursor">Ln <strong>1</strong>, Col <strong>1</strong></span><span id="codeStatusMeta">UTF-8 · Spaces: 2 · HTML · Wrap</span></div>
         </div>
-        <div class="code-miniwrap"><pre class="code-minimap" id="codeMini"></pre></div>
-      </div>
-      <div class="code-preview" id="codePreviewPanel">
-        <div class="code-preview-head"><span>Live preview</span><span id="codeMatchCount">0 matches</span></div>
-        <div class="code-preview-frame" id="codePreviewFrame"></div>
-        <div class="code-hint">Built for the floating phone: line numbers, HTML tag highlighting, search/replace, formatting, duplicate line, quick comments, minimap, word count, and live preview — all without external APIs.</div>
+        <div class="code-panel">
+          <div class="code-panel-head">
+            <span class="code-panel-title">Preview</span>
+            <span class="code-panel-meta">Live app output</span>
+          </div>
+          <div class="code-preview">
+            <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2520,59 +2471,105 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
   const codeInput=D.getElementById('codeInput');
   const codeHighlight=D.getElementById('codeHighlight');
   const codeLines=D.getElementById('codeLines');
-  const codeMini=D.getElementById('codeMini');
   const codeScroll=D.getElementById('codeScroll');
   const codePreviewFrame=D.getElementById('codePreviewFrame');
-  const codeFind=D.getElementById('codeFind');
-  const codeReplace=D.getElementById('codeReplace');
-  const codePreviewPanel=D.getElementById('codePreviewPanel');
-  let codePreviewOn=true, codeWrap=true;
-  try{codeInput.value=localStorage.getItem(CODE_KEY)||defaultCode;}catch{codeInput.value=defaultCode;}
+  const codeTabs=D.getElementById('codeTabs');
+  const CODE_FILES_DEFAULT={
+    'index.html':defaultCode,
+    'style.css':`body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:#fff;
+}
+
+main{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+
+.card{
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 20px 60px rgba(15,23,42,.35);
+}`,
+    'app.js':`const root=document.querySelector('main');
+
+const card=document.createElement('section');
+card.className='card';
+card.innerHTML='<h1>Live preview ready</h1><p>Edit any tab and press Run to refresh.</p>';
+
+root.appendChild(card);`
+  };
+  let codeFiles;
+  try{
+    const saved=JSON.parse(localStorage.getItem(CODE_KEY)||'null');
+    codeFiles=saved&&typeof saved==='object'?{...CODE_FILES_DEFAULT,...saved}:null;
+  }catch{codeFiles=null;}
+  if(!codeFiles)codeFiles={...CODE_FILES_DEFAULT};
+  const CODE_META={
+    'index.html':{lang:'HTML',ext:'html'},
+    'style.css':{lang:'CSS',ext:'css'},
+    'app.js':{lang:'JavaScript',ext:'js'}
+  };
+  let activeCodeFile='index.html';
   function escCode(str){return str.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
   function safeRe(txt){return txt.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
-  function markCode(str,term){
-    const escaped=escCode(str);
-    if(!term)return escaped;
-    return escaped.replace(new RegExp(safeRe(term),'gi'),m=>`<mark>${m}</mark>`);
+  function markCode(str){
+    return escCode(str);
   }
-  function formatTag(tag,term=''){
-    if(tag.startsWith('<!--'))return `<span class="com">${markCode(tag,term)}</span>`;
+  function formatTag(tag){
+    if(tag.startsWith('<!--'))return `<span class="com">${markCode(tag)}</span>`;
     const m=tag.match(/^(<\/?)([A-Za-z][\w:-]*)([\s\S]*?)(\/?>)$/);
-    if(!m)return markCode(tag,term);
+    if(!m)return markCode(tag);
     const [,open,name,attrs,close]=m;
-    let out=`${markCode(open,term)}<span class="tag">${markCode(name,term)}</span>`;
+    let out=`${markCode(open)}<span class="tag">${markCode(name)}</span>`;
     const attrRe=/([^\s=/>]+)(\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/g;
     let idx=0,match;
     while((match=attrRe.exec(attrs))){
-      out+=markCode(attrs.slice(idx,match.index),term);
-      out+=`<span class="attr">${markCode(match[1],term)}</span>`;
+      out+=markCode(attrs.slice(idx,match.index));
+      out+=`<span class="attr">${markCode(match[1])}</span>`;
       if(match[2]){
         const eq=match[2].match(/^(\s*=\s*)([\s\S]+)$/);
-        if(eq)out+=`${markCode(eq[1],term)}<span class="str">${markCode(eq[2],term)}</span>`;
+        if(eq)out+=`${markCode(eq[1])}<span class="str">${markCode(eq[2])}</span>`;
       }
       idx=match.index+match[0].length;
     }
-    out+=markCode(attrs.slice(idx),term);
-    out+=markCode(close,term);
+    out+=markCode(attrs.slice(idx));
+    out+=markCode(close);
     return out;
   }
-  function highlightHTML(code,term=''){
+  function highlightHTML(code){
     const parts=[];
     const tokenRe=/(<!--[\s\S]*?-->|<\/?[A-Za-z][^>]*>)/g;
     let last=0,match;
     while((match=tokenRe.exec(code))){
-      if(match.index>last)parts.push(`<span class="txt">${markCode(code.slice(last,match.index),term)}</span>`);
-      parts.push(formatTag(match[0],term));
+      if(match.index>last)parts.push(`<span class="txt">${markCode(code.slice(last,match.index))}</span>`);
+      parts.push(formatTag(match[0]));
       last=match.index+match[0].length;
     }
-    if(last<code.length)parts.push(`<span class="txt">${markCode(code.slice(last),term)}</span>`);
+    if(last<code.length)parts.push(`<span class="txt">${markCode(code.slice(last))}</span>`);
     return parts.join('')||'<span class="txt"> </span>';
   }
-  function countMatches(txt,term){
-    if(!term)return 0;
-    const m=txt.match(new RegExp(safeRe(term),'gi'));
-    return m?m.length:0;
+  function highlightJS(code){
+    return markCode(code)
+      .replace(/\b(const|let|var|function|return|if|else|for|while|new|class|document|window)\b/g,'<span class="kw">$1</span>')
+      .replace(/("[^"]*"|'[^']*'|`[^`]*`)/g,'<span class="str">$1</span>')
+      .replace(/\b(\d+)\b/g,'<span class="num">$1</span>');
   }
+  function highlightCSS(code){
+    return markCode(code)
+      .replace(/([.#]?[A-Za-z_-][\w-]*)(\s*\{)/g,'<span class="kw">$1</span>$2')
+      .replace(/([A-Za-z-]+)(\s*:)/g,'<span class="attr">$1</span>$2')
+      .replace(/(:\s*)([^;}{]+)/g,(m,p1,p2)=>`${p1}<span class="str">${p2}</span>`)
+      .replace(/\b(\d+)(px|rem|em|vh|vw|%)\b/g,'<span class="num">$1$2</span>');
+  }
+  function currentCode(){return codeFiles[activeCodeFile]||'';}
+  function saveCodeFiles(){try{localStorage.setItem(CODE_KEY,JSON.stringify(codeFiles));}catch{}}
   function updateCursor(){
     const pos=codeInput.selectionStart;
     const pre=codeInput.value.slice(0,pos);
@@ -2584,124 +2581,67 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
     codeHighlight.scrollTop=codeInput.scrollTop;
     codeHighlight.scrollLeft=codeInput.scrollLeft;
     codeLines.scrollTop=codeInput.scrollTop;
-    const max=Math.max(1,codeInput.scrollHeight-codeInput.clientHeight);
-    const pct=codeInput.scrollTop/max;
-    codeMini.style.transform=`translateY(${-pct*45}px)`;
   }
-  function renderCode(){
-    const value=codeInput.value;
+  function buildPreviewDoc(){
+    const html=codeFiles['index.html']||'';
+    const css=`<style>${codeFiles['style.css']||''}</style>`;
+    const js=`<script>${(codeFiles['app.js']||'').replace(/<\/script>/gi,'<\\/script>')}<\/script>`;
+    if(/<\/head>/i.test(html)&&/<\/body>/i.test(html))return html.replace(/<\/head>/i,css+'</head>').replace(/<\/body>/i,js+'</body>');
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8">${css}</head><body>${html}${js}</body></html>`;
+  }
+  function renderTabs(){
+    codeTabs.innerHTML='';
+    Object.keys(CODE_META).forEach(name=>{
+      const btn=D.createElement('button');
+      btn.className='code-file-tab'+(name===activeCodeFile?' active':'');
+      btn.textContent=name;
+      btn.onclick=()=>{
+        codeFiles[activeCodeFile]=codeInput.value;
+        activeCodeFile=name;
+        renderCode();
+        codeInput.focus();
+      };
+      codeTabs.appendChild(btn);
+    });
+  }
+  function renderCode(runPreview=false){
+    const value=currentCode();
+    const prevSelStart=codeInput.selectionStart||0;
+    const prevSelEnd=codeInput.selectionEnd||0;
+    renderTabs();
+    if(codeInput.value!==value){
+      codeInput.value=value;
+      codeInput.selectionStart=Math.min(prevSelStart,value.length);
+      codeInput.selectionEnd=Math.min(prevSelEnd,value.length);
+    }
     const lines=value.split('\n');
     const currentLine=(value.slice(0,codeInput.selectionStart).match(/\n/g)||[]).length+1;
-    codeHighlight.innerHTML=highlightHTML(value,codeFind.value.trim());
+    const ext=CODE_META[activeCodeFile].ext;
+    codeHighlight.innerHTML=ext==='html'?highlightHTML(value):ext==='css'?highlightCSS(value):highlightJS(value);
     codeLines.innerHTML=lines.map((_,i)=>`<div class="${i+1===currentLine?'active':''}">${i+1}</div>`).join('');
-    codeMini.textContent=value;
-    codePreviewFrame.innerHTML=value;
-    D.getElementById('codeLineCount').textContent=lines.length;
-    D.getElementById('codeWordCount').textContent=(value.trim().match(/\S+/g)||[]).length;
-    D.getElementById('codeMatchCount').textContent=`${countMatches(value,codeFind.value.trim())} matches`;
+    D.getElementById('codePanelTitle').textContent=activeCodeFile;
+    D.getElementById('codePanelMeta').textContent=`${CODE_META[activeCodeFile].lang} · ${lines.length} ${lines.length===1?'line':'lines'}`;
+    D.getElementById('codeStatusMeta').textContent=`${CODE_META[activeCodeFile].lang}`;
     updateCursor();
     syncScroll();
-    try{localStorage.setItem(CODE_KEY,value);}catch{}
+    if(runPreview)codePreviewFrame.srcdoc=buildPreviewDoc();
   }
-  function setWrap(on){
-    codeWrap=on;
-    const ws=on?'pre-wrap':'pre';
-    [codeInput,codeHighlight].forEach(el=>el.style.whiteSpace=ws);
-    D.getElementById('codeWrapToggle').textContent=on?'Wrap':'No wrap';
-    D.getElementById('codeStatusMeta').textContent=`UTF-8 · Spaces: 2 · HTML${on?' · Wrap':''}`;
-  }
-  function formatHTML(){
-    const src=codeInput.value.split('\n').map(l=>l.trim()).filter((line,idx,arr)=>line||idx<arr.length-1);
-    let indent=0;
-    const out=[];
-    src.forEach(line=>{
-      if(/^<\//.test(line))indent=Math.max(0,indent-1);
-      out.push('  '.repeat(indent)+line);
-      if(/^<(?!\/|!)([^>]+[^/])>$/.test(line)&&!/<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)(\s|>|\/)/i.test(line))indent++;
-    });
-    codeInput.value=out.join('\n');
+  codeInput.addEventListener('input',()=>{
+    codeFiles[activeCodeFile]=codeInput.value;
+    saveCodeFiles();
     renderCode();
-  }
-  function replaceAll(){
-    const q=codeFind.value;
-    if(!q)return;
-    codeInput.value=codeInput.value.split(q).join(codeReplace.value);
-    renderCode();
-  }
-  function duplicateLine(){
-    const v=codeInput.value;
-    const pos=codeInput.selectionStart;
-    const start=v.lastIndexOf('\n',Math.max(0,pos-1))+1;
-    let end=v.indexOf('\n',pos);
-    if(end<0)end=v.length;
-    const line=v.slice(start,end);
-    const sep=end<v.length?'\n':'';
-    codeInput.value=v.slice(0,end)+sep+line+v.slice(end);
-    codeInput.selectionStart=codeInput.selectionEnd=end+sep.length+line.length;
-    renderCode();
-  }
-  function toggleComment(){
-    const start=codeInput.selectionStart,end=codeInput.selectionEnd;
-    if(start!==end){
-      const sel=codeInput.value.slice(start,end).trim()||'comment';
-      codeInput.setRangeText(sel.startsWith('<!--')&&sel.endsWith('-->')?sel.replace(/^<!--\s?/,'').replace(/\s?-->$/,''):`<!-- ${sel} -->`,start,end,'end');
-    }else{
-      const lineIndex=(codeInput.value.slice(0,start).match(/\n/g)||[]).length;
-      const line=codeInput.value.split('\n')[lineIndex]||'';
-      const lineStart=codeInput.value.lastIndexOf('\n',Math.max(0,start-1))+1;
-      const lineEnd=lineStart+line.length;
-      const trimmed=line.trim()||'comment';
-      codeInput.setRangeText(trimmed.startsWith('<!--')&&trimmed.endsWith('-->')?trimmed.replace(/^<!--\s?/,'').replace(/\s?-->$/,''):`<!-- ${trimmed} -->`,lineStart,lineEnd,'end');
-    }
-    renderCode();
-  }
-  codeInput.addEventListener('input',renderCode);
+  });
   codeInput.addEventListener('scroll',syncScroll);
   codeInput.addEventListener('click',renderCode);
   codeInput.addEventListener('keyup',updateCursor);
   codeInput.addEventListener('keydown',e=>{
-    if(e.key==='Tab'){e.preventDefault();const s=codeInput.selectionStart;codeInput.setRangeText('  ',s,s,'end');renderCode();}
-    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='f'){e.preventDefault();codeFind.focus();codeFind.select();}
-    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='h'){e.preventDefault();replaceAll();}
-    if((e.metaKey||e.ctrlKey)&&e.altKey&&e.key.toLowerCase()==='f'){e.preventDefault();formatHTML();}
-    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='d'){e.preventDefault();duplicateLine();}
-    if((e.metaKey||e.ctrlKey)&&e.key==='/'){e.preventDefault();toggleComment();}
+    if(e.key==='Tab'){e.preventDefault();const s=codeInput.selectionStart;codeInput.setRangeText('  ',s,s,'end');codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();renderCode();}
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='s'){e.preventDefault();codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();codePreviewFrame.srcdoc=buildPreviewDoc();showNotif({icon:'💾',title:'Saved',body:`${activeCodeFile} updated`});}
   });
-  codeFind.addEventListener('input',renderCode);
-  codeReplace.addEventListener('keydown',e=>{if(e.key==='Enter')replaceAll();});
-  D.getElementById('codeFormatBtn').onclick=formatHTML;
-  D.getElementById('codeCommentBtn').onclick=toggleComment;
-  D.getElementById('codeDuplicateBtn').onclick=duplicateLine;
-  D.getElementById('codeGotoBtn').onclick=()=>{
-    const n=parseInt(prompt('Go to line number:','1')||'',10);
-    if(!n)return;
-    const lines=codeInput.value.split('\n');
-    let idx=0;
-    for(let i=0;i<Math.min(n-1,lines.length);i++)idx+=lines[i].length+1;
-    codeInput.focus();
-    codeInput.selectionStart=codeInput.selectionEnd=idx;
-    renderCode();
-  };
-  D.getElementById('codeCopyBtn').onclick=async()=>{
-    try{await navigator.clipboard.writeText(codeInput.value);showNotif({icon:'💻',title:'Code copied',body:'Editor contents copied to clipboard'});}
-    catch{showNotif({icon:'⚠️',title:'Clipboard unavailable',body:'Copy is blocked in this context'});}
-  };
-  D.getElementById('codeDownloadBtn').onclick=()=>{
-    const a=D.createElement('a');
-    a.href=URL.createObjectURL(new Blob([codeInput.value],{type:'text/html'}));
-    a.download='floating-phone.html';
-    a.click();
-    setTimeout(()=>URL.revokeObjectURL(a.href),500);
-  };
-  D.getElementById('codeWrapToggle').onclick=()=>{setWrap(!codeWrap);renderCode();};
-  D.getElementById('codePreviewToggle').onclick=function(){
-    codePreviewOn=!codePreviewOn;
-    codePreviewPanel.style.display=codePreviewOn?'flex':'none';
-    this.classList.toggle('on',codePreviewOn);
-  };
+  D.getElementById('codeRunBtn').onclick=()=>{codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();codePreviewFrame.srcdoc=buildPreviewDoc();showNotif({icon:'▶️',title:'Preview refreshed',body:'Running current project'});};
   codeScroll.addEventListener('pointerdown',()=>codeInput.focus());
-  setWrap(true);
-  renderCode();
+  renderTabs();
+  renderCode(true);
 
   /* ══ onOpen / onClose ══ */
   let ytLoaded=false, rdLoaded=false, newsLoaded=false, spTab='charts';
