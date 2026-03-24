@@ -431,6 +431,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .code-panel-head{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05)}
 .code-panel-title{font-size:8px;text-transform:uppercase;letter-spacing:.9px;color:var(--sub);font-weight:800}
 .code-panel-meta{font-size:7.5px;color:rgba(226,232,240,.62);font-weight:700}
+.code-head-actions{display:flex;gap:4px}
+.code-head-btn{padding:4px 6px;border:1px solid rgba(148,163,184,.35);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:7px;font-weight:700;cursor:pointer}
 .code-editor-wrap{display:flex;flex-direction:column;height:100%}
 .code-stage{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
 .code-lines{padding:12px 5px 12px 0;text-align:right;font-size:9px;line-height:16px;user-select:none;overflow:hidden;background:#09101f;color:rgba(148,163,184,.68);border-right:1px solid rgba(255,255,255,.04)}
@@ -448,8 +450,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .code-status span strong{color:#fff;font-weight:800}
 .code-preview{display:flex;flex-direction:column;height:100%}
 .code-preview-frame{flex:1;background:#fff;border:none;width:100%}
-.preview-wrap{display:flex;flex-direction:column;height:100%;padding:0}
-.preview-card{flex:1;border:none;background:#fff;overflow:hidden}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -1012,6 +1012,11 @@ body.drag-mode .drop-overlay{opacity:1}
         <div class="code-panel">
           <div class="code-panel-head">
             <span class="code-panel-title" id="codePanelTitle">index.html</span>
+            <div class="code-head-actions">
+              <button class="code-head-btn" id="codeFormatBtn">Format</button>
+              <button class="code-head-btn" id="codeFindBtn">Find</button>
+              <button class="code-head-btn" id="codeDownloadBtn">Export</button>
+            </div>
             <span class="code-panel-meta" id="codePanelMeta">HTML · 1 line</span>
           </div>
           <div class="code-editor-wrap">
@@ -1035,12 +1040,8 @@ body.drag-mode .drop-overlay{opacity:1}
 <!-- CODE PREVIEW -->
 <div class="app" id="aPreview">
   <div class="ah"><button class="bk" id="bkPreview">‹ Back</button><div class="atit">▶ App Preview</div><button class="bk" id="previewReloadBtn" style="color:#60a5fa">Reload</button></div>
-  <div class="ac" style="padding:0">
-    <div class="preview-wrap">
-      <div class="preview-card">
-        <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts"></iframe>
-      </div>
-    </div>
+  <div class="ac" style="padding:0;display:flex;min-height:0">
+    <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts"></iframe>
   </div>
 </div>
 
@@ -2689,6 +2690,55 @@ root.appendChild(card);`
     syncScroll();
     if(runPreview)codePreviewFrame.srcdoc=buildPreviewDoc();
   }
+  function formatCurrentFile(){
+    const ext=extFromName(activeCodeFile);
+    const src=codeInput.value;
+    if(ext==='html'){
+      const lines=src.split('\n').map(l=>l.trim()).filter((l,i,a)=>l||i<a.length-1);
+      let indent=0;const out=[];
+      lines.forEach(line=>{
+        if(/^<\//.test(line))indent=Math.max(0,indent-1);
+        out.push('  '.repeat(indent)+line);
+        if(/^<(?!\/|!)([^>]+[^/])>$/.test(line)&&!/<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)(\s|>|\/)/i.test(line))indent++;
+      });
+      codeInput.value=out.join('\n');
+    }else if(ext==='css'){
+      codeInput.value=src
+        .replace(/\s*{\s*/g,' {\n  ')
+        .replace(/;\s*/g,';\n  ')
+        .replace(/\s*}\s*/g,'\n}\n')
+        .replace(/\n{3,}/g,'\n\n')
+        .trim();
+    }else if(ext==='js'){
+      codeInput.value=src
+        .replace(/;\s*/g,';\n')
+        .replace(/\{\s*/g,'{\n')
+        .replace(/\s*\}/g,'\n}')
+        .replace(/\n{3,}/g,'\n\n')
+        .trim();
+    }
+    codeFiles[activeCodeFile]=codeInput.value;
+    saveCodeFiles();
+    renderCode();
+  }
+  function findInCurrentFile(){
+    const q=prompt('Find text in current file:','');
+    if(!q)return;
+    const idx=codeInput.value.toLowerCase().indexOf(q.toLowerCase(),codeInput.selectionEnd||0);
+    const start=idx>=0?idx:codeInput.value.toLowerCase().indexOf(q.toLowerCase());
+    if(start<0){showNotif({icon:'🔎',title:'Not found',body:'No match in current file'});return;}
+    codeInput.focus();
+    codeInput.selectionStart=start;
+    codeInput.selectionEnd=start+q.length;
+    renderCode();
+  }
+  function downloadCurrentFile(){
+    const a=D.createElement('a');
+    a.href=URL.createObjectURL(new Blob([codeInput.value],{type:'text/plain'}));
+    a.download=activeCodeFile;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),600);
+  }
   codeInput.addEventListener('input',()=>{
     codeFiles[activeCodeFile]=codeInput.value;
     saveCodeFiles();
@@ -2713,6 +2763,9 @@ root.appendChild(card);`
     openApp('preview');
     showNotif({icon:'▶️',title:'Preview opened',body:'Running current project'});
   };
+  D.getElementById('codeFormatBtn').onclick=formatCurrentFile;
+  D.getElementById('codeFindBtn').onclick=findInCurrentFile;
+  D.getElementById('codeDownloadBtn').onclick=downloadCurrentFile;
   D.getElementById('previewReloadBtn').onclick=()=>{runCodeProject();showNotif({icon:'🔄',title:'Preview refreshed',body:'Latest files rendered'});};
   codeScroll.addEventListener('pointerdown',()=>codeInput.focus());
   renderTabs();
