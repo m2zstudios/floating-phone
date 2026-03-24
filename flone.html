@@ -571,6 +571,13 @@ input:focus,textarea:focus{border-color:rgba(167,139,250,.5)!important;backgroun
 #homePages{flex:1;display:flex;overflow:hidden;position:relative}
 .homePage{min-width:100%;display:flex;flex-direction:column;transition:transform .32s cubic-bezier(.4,0,.2,1)}
 .homePage .hdate{margin:10px 14px 6px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;letter-spacing:.2px;font-weight:400}
+.home-search-wrap{padding:0 12px 6px}
+.home-search{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(148,163,184,.28);color:#fff;padding:8px 10px;font-size:9px;outline:none}
+.recent-apps{display:none;gap:6px;overflow-x:auto;padding:0 12px 6px}
+.recent-apps.on{display:flex}
+.recent-apps::-webkit-scrollbar{display:none}
+.recent-chip{display:flex;align-items:center;gap:6px;padding:5px 9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:8px;color:#fff;white-space:nowrap;cursor:pointer}
+.recent-chip b{font-size:11px}
 #pageDotsBar{display:flex;justify-content:center;align-items:center;gap:5px;height:14px;flex-shrink:0}
 .pgdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);transition:.2s;cursor:pointer}
 .pgdot.on{background:#fff;width:14px;border-radius:3px}
@@ -680,6 +687,8 @@ body.drag-mode .drop-overlay{opacity:1}
 <!-- HOME -->
 <div id="home" class="gone">
   <div class="hdate" id="hdate"></div>
+  <div class="home-search-wrap"><input class="home-search" id="homeSearch" placeholder="Search apps…"></div>
+  <div class="recent-apps" id="recentApps"></div>
   <div class="drag-hint-banner">Shift+hold active · Drag apps to rearrange · Drop on page dots to move pages</div>
   <div id="homePages">
     <!-- Page 0: Widgets + Apps (dynamic) -->
@@ -1112,6 +1121,23 @@ body.drag-mode .drop-overlay{opacity:1}
     {id:'wbt',  label:'Bitcoin', icon:'₿'},
   ];
   let widgetVisible={wt:true,ww:true,wai:true,wbt:true};
+  let recentAppsArr=[];
+  let appSearchQuery='';
+
+  function renderRecentApps(){
+    const wrap=D.getElementById('recentApps');
+    if(!wrap)return;
+    wrap.innerHTML='';
+    const list=recentAppsArr.slice(0,6).map(id=>APPS.find(a=>a.id===id)).filter(Boolean);
+    wrap.classList.toggle('on',list.length>0);
+    list.forEach(a=>{
+      const el=D.createElement('button');
+      el.className='recent-chip';
+      el.innerHTML=`<b>${a.icon}</b><span>${a.label}</span>`;
+      el.onclick=()=>openApp(a.id);
+      wrap.appendChild(el);
+    });
+  }
 
   /* --- Render page dots --- */
   function renderPageDots(){
@@ -1180,7 +1206,10 @@ body.drag-mode .drop-overlay{opacity:1}
         grid=g;
         grid.innerHTML='';
       }
-      (pageApps[pi]||[]).forEach(aid=>{
+      const sourceApps=(pi===0 && appSearchQuery.trim())
+        ? APPS.filter(a=>a.label.toLowerCase().includes(appSearchQuery.toLowerCase())||a.id.toLowerCase().includes(appSearchQuery.toLowerCase())).map(a=>a.id)
+        : (pageApps[pi]||[]);
+      sourceApps.forEach(aid=>{
         const a=APPS.find(x=>x.id===aid);
         if(!a)return;
         const el=buildAppItem(a,pi);
@@ -1207,6 +1236,16 @@ body.drag-mode .drop-overlay{opacity:1}
 
   /* Initial build */
   rebuildGrids();
+  renderRecentApps();
+  const homeSearchEl=D.getElementById('homeSearch');
+  homeSearchEl.oninput=function(){appSearchQuery=this.value.trim();currentPage=0;rebuildGrids();goToPage(0);};
+  homeSearchEl.onkeydown=e=>{
+    if(e.key==='Enter'&&appSearchQuery){
+      const first=APPS.find(a=>a.label.toLowerCase().includes(appSearchQuery.toLowerCase())||a.id.toLowerCase().includes(appSearchQuery.toLowerCase()));
+      if(first)openApp(first.id);
+    }
+    if(e.key==='Escape'){homeSearchEl.value='';appSearchQuery='';rebuildGrids();}
+  };
 
   /* ── Dock ── */
   D.querySelectorAll('.db[data-ap]').forEach(b=>b.onclick=()=>openApp(b.dataset.ap));
@@ -1549,6 +1588,8 @@ body.drag-mode .drop-overlay{opacity:1}
       onClose(currentApp);
     }
     currentApp=id;
+    recentAppsArr=[id,...recentAppsArr.filter(x=>x!==id)];
+    renderRecentApps();
     const el=D.getElementById('a'+cap(id));
     el.style.transform='translateX(22px) scale(.97)';
     el.style.opacity='0';
