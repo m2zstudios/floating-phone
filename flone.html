@@ -419,10 +419,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .code-shell{display:flex;flex-direction:column;height:100%;gap:10px}
 .code-file-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px}
 .code-file-tabs::-webkit-scrollbar{display:none}
-.code-file-tab{padding:7px 11px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(226,232,240,.82);font-size:8.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.18s}
+.code-file-tab{padding:7px 11px;border-radius:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(226,232,240,.82);font-size:8.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.18s}
 .code-file-tab.active{background:linear-gradient(135deg,#2563eb,#3b82f6);border-color:transparent;color:#fff;box-shadow:0 8px 20px rgba(37,99,235,.26)}
-.code-workspace{display:grid;grid-template-rows:minmax(0,1fr) 168px;gap:10px;flex:1;min-height:0}
-.code-panel{border-radius:20px;background:linear-gradient(180deg,#0b1020,#111827);border:1px solid rgba(148,163,184,.16);overflow:hidden;box-shadow:0 14px 30px rgba(15,23,42,.32),inset 0 1px 0 rgba(255,255,255,.04)}
+.code-workspace{display:grid;grid-template-rows:minmax(0,1fr);gap:10px;flex:1;min-height:0}
+.code-panel{border-radius:0;background:linear-gradient(180deg,#0b1020,#111827);border:1px solid rgba(148,163,184,.16);overflow:hidden;box-shadow:0 14px 30px rgba(15,23,42,.32),inset 0 1px 0 rgba(255,255,255,.04)}
 .code-panel-head{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05)}
 .code-panel-title{font-size:8px;text-transform:uppercase;letter-spacing:.9px;color:var(--sub);font-weight:800}
 .code-panel-meta{font-size:7.5px;color:rgba(226,232,240,.62);font-weight:700}
@@ -443,6 +443,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .code-status span strong{color:#fff;font-weight:800}
 .code-preview{display:flex;flex-direction:column;height:100%}
 .code-preview-frame{flex:1;background:#fff;border:none;width:100%}
+.preview-wrap{display:flex;flex-direction:column;height:100%;padding:10px 10px 12px}
+.preview-card{flex:1;border:1px solid rgba(148,163,184,.2);background:#fff;overflow:hidden}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -1020,15 +1022,18 @@ body.drag-mode .drop-overlay{opacity:1}
             <div class="code-status"><span id="codeCursor">Ln <strong>1</strong>, Col <strong>1</strong></span><span id="codeStatusMeta">HTML</span></div>
           </div>
         </div>
-        <div class="code-panel">
-          <div class="code-panel-head">
-            <span class="code-panel-title">Preview</span>
-            <span class="code-panel-meta">Live app output</span>
-          </div>
-          <div class="code-preview">
-            <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts"></iframe>
-          </div>
-        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CODE PREVIEW -->
+<div class="app" id="aPreview">
+  <div class="ah"><button class="bk" id="bkPreview">‹ Back</button><div class="atit">▶ App Preview</div><button class="bk" id="previewReloadBtn" style="color:#60a5fa">Reload</button></div>
+  <div class="ac" style="padding:0">
+    <div class="preview-wrap">
+      <div class="preview-card">
+        <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts"></iframe>
       </div>
     </div>
   </div>
@@ -1549,7 +1554,7 @@ body.drag-mode .drop-overlay{opacity:1}
   const bkMap={bkTimer:'timer',bkNotes:'notes',bkWeather:'weather',bkMusic:'music',bkCalc:'calc',
     bkCal:'calendar',bkTodo:'todo',bkCon:'contacts',bkGal:'gallery',bkSW:'stopwatch',
     bkQR:'qr',bkHlth:'health',bkAi:'ai',bkCrypto:'crypto',
-    bkYT:'youtube',bkSpotify:'spotify',bkReddit:'reddit',bkNews:'news',bkCode:'code',bkSet:'settings'};
+    bkYT:'youtube',bkSpotify:'spotify',bkReddit:'reddit',bkNews:'news',bkCode:'code',bkPreview:'preview',bkSet:'settings'};
   Object.keys(bkMap).forEach(k=>{const b=D.getElementById(k);if(b)b.onclick=goHome;});
 
   /* ── Widget taps ── */
@@ -2518,7 +2523,6 @@ root.appendChild(card);`
   };
   let activeCodeFile='index.html';
   function escCode(str){return str.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
-  function safeRe(txt){return txt.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
   function markCode(str){
     return escCode(str);
   }
@@ -2556,17 +2560,37 @@ root.appendChild(card);`
     return parts.join('')||'<span class="txt"> </span>';
   }
   function highlightJS(code){
-    return markCode(code)
-      .replace(/\b(const|let|var|function|return|if|else|for|while|new|class|document|window)\b/g,'<span class="kw">$1</span>')
-      .replace(/("[^"]*"|'[^']*'|`[^`]*`)/g,'<span class="str">$1</span>')
-      .replace(/\b(\d+)\b/g,'<span class="num">$1</span>');
+    const kw=new Set(['const','let','var','function','return','if','else','for','while','new','class','document','window','import','from','export','default','await','async']);
+    const tokenRe=/(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|\b[A-Za-z_$][\w$]*\b|\b\d+(?:\.\d+)?\b)/g;
+    const out=[];let last=0,m;
+    while((m=tokenRe.exec(code))){
+      if(m.index>last)out.push(`<span class="txt">${markCode(code.slice(last,m.index))}</span>`);
+      const t=m[0];
+      if(t.startsWith('//')||t.startsWith('/*'))out.push(`<span class="com">${markCode(t)}</span>`);
+      else if(t.startsWith('"')||t.startsWith("'")||t.startsWith('`'))out.push(`<span class="str">${markCode(t)}</span>`);
+      else if(/^\d/.test(t))out.push(`<span class="num">${markCode(t)}</span>`);
+      else if(kw.has(t))out.push(`<span class="kw">${markCode(t)}</span>`);
+      else out.push(`<span class="txt">${markCode(t)}</span>`);
+      last=m.index+t.length;
+    }
+    if(last<code.length)out.push(`<span class="txt">${markCode(code.slice(last))}</span>`);
+    return out.join('')||'<span class="txt"> </span>';
   }
   function highlightCSS(code){
-    return markCode(code)
-      .replace(/([.#]?[A-Za-z_-][\w-]*)(\s*\{)/g,'<span class="kw">$1</span>$2')
-      .replace(/([A-Za-z-]+)(\s*:)/g,'<span class="attr">$1</span>$2')
-      .replace(/(:\s*)([^;}{]+)/g,(m,p1,p2)=>`${p1}<span class="str">${p2}</span>`)
-      .replace(/\b(\d+)(px|rem|em|vh|vw|%)\b/g,'<span class="num">$1$2</span>');
+    const tokenRe=/(\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|#[0-9a-fA-F]{3,8}\b|\b\d+(?:\.\d+)?(?:px|rem|em|vh|vw|%)?\b|[.#]?[A-Za-z_-][\w-]*(?=\s*\{)|[A-Za-z-]+(?=\s*:))/g;
+    const out=[];let last=0,m;
+    while((m=tokenRe.exec(code))){
+      if(m.index>last)out.push(`<span class="txt">${markCode(code.slice(last,m.index))}</span>`);
+      const t=m[0];
+      if(t.startsWith('/*'))out.push(`<span class="com">${markCode(t)}</span>`);
+      else if(t.startsWith('"')||t.startsWith("'"))out.push(`<span class="str">${markCode(t)}</span>`);
+      else if(/^#([0-9a-f]{3,8})$/i.test(t)||/^\d/.test(t))out.push(`<span class="num">${markCode(t)}</span>`);
+      else if(/[.#]/.test(t[0]))out.push(`<span class="kw">${markCode(t)}</span>`);
+      else out.push(`<span class="attr">${markCode(t)}</span>`);
+      last=m.index+t.length;
+    }
+    if(last<code.length)out.push(`<span class="txt">${markCode(code.slice(last))}</span>`);
+    return out.join('')||'<span class="txt"> </span>';
   }
   function currentCode(){return codeFiles[activeCodeFile]||'';}
   function saveCodeFiles(){try{localStorage.setItem(CODE_KEY,JSON.stringify(codeFiles));}catch{}}
@@ -2638,7 +2662,17 @@ root.appendChild(card);`
     if(e.key==='Tab'){e.preventDefault();const s=codeInput.selectionStart;codeInput.setRangeText('  ',s,s,'end');codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();renderCode();}
     if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='s'){e.preventDefault();codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();codePreviewFrame.srcdoc=buildPreviewDoc();showNotif({icon:'💾',title:'Saved',body:`${activeCodeFile} updated`});}
   });
-  D.getElementById('codeRunBtn').onclick=()=>{codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();codePreviewFrame.srcdoc=buildPreviewDoc();showNotif({icon:'▶️',title:'Preview refreshed',body:'Running current project'});};
+  function runCodeProject(){
+    codeFiles[activeCodeFile]=codeInput.value;
+    saveCodeFiles();
+    codePreviewFrame.srcdoc=buildPreviewDoc();
+  }
+  D.getElementById('codeRunBtn').onclick=()=>{
+    runCodeProject();
+    openApp('preview');
+    showNotif({icon:'▶️',title:'Preview opened',body:'Running current project'});
+  };
+  D.getElementById('previewReloadBtn').onclick=()=>{runCodeProject();showNotif({icon:'🔄',title:'Preview refreshed',body:'Latest files rendered'});};
   codeScroll.addEventListener('pointerdown',()=>codeInput.focus());
   renderTabs();
   renderCode(true);
@@ -2655,6 +2689,7 @@ root.appendChild(card);`
     if(id==='reddit'&&!rdLoaded){rdLoaded=true;loadReddit();}
     if(id==='news'&&!newsLoaded){newsLoaded=true;loadNews();}
     if(id==='code')setTimeout(()=>codeInput.focus(),80);
+    if(id==='preview')runCodeProject();
   }
   function onClose(id){
     if(id==='music'&&mPlaying){/* keep playing */}
