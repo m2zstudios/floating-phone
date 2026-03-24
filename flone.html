@@ -82,6 +82,7 @@ const APPS=[
   {id:'spotify', label:'Spotify', icon:'♪',  g:'#1db954,#158a3e'},
   {id:'reddit',  label:'Reddit',  icon:'👾', g:'#ff4500,#ff6534'},
   {id:'news',    label:'News',    icon:'📰', g:'#0f172a,#1e3a5f'},
+  {id:'code',    label:'Code',    icon:'💻', g:'#2563eb,#7c3aed'},
   {id:'settings',label:'Settings',icon:'⚙',  g:'#475569,#64748b'},
 ];
 
@@ -415,6 +416,47 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .wx-fday{color:var(--sub);width:30px;font-weight:500}.wx-ficon{font-size:13px}.wx-fhi{font-weight:700;color:var(--acc2)}.wx-flo{color:var(--sub)}
 
 /* SETTINGS */
+.code-shell{display:flex;flex-direction:column;height:100%;gap:0}
+.code-file-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 8px 6px;border-bottom:1px solid rgba(255,255,255,.05)}
+.code-file-tabs::-webkit-scrollbar{display:none}
+.code-file-tab{display:flex;align-items:center;gap:6px;padding:7px 8px 7px 10px;border-radius:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(226,232,240,.82);font-size:8.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:.18s;flex-shrink:0}
+.code-file-tab.active{border-color:transparent;color:#fff;box-shadow:0 8px 20px rgba(37,99,235,.26)}
+.code-file-tab.html.active{background:linear-gradient(135deg,#2563eb,#3b82f6)}
+.code-file-tab.css.active{background:linear-gradient(135deg,#ca8a04,#facc15);color:#111827}
+.code-file-tab.js.active{background:linear-gradient(135deg,#ea580c,#fb923c)}
+.code-tab-close{width:14px;height:14px;border:none;background:rgba(0,0,0,.25);color:#fff;cursor:pointer;font-size:9px;line-height:1;border-radius:0;display:grid;place-items:center;opacity:.9}
+.code-tab-add{padding:7px 10px;border:1px dashed rgba(148,163,184,.45);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0}
+.code-workspace{display:grid;grid-template-rows:minmax(0,1fr);gap:10px;flex:1;min-height:0}
+.code-panel{border-radius:0;background:linear-gradient(180deg,#0b1020,#111827);border:1px solid rgba(148,163,184,.16);overflow:hidden;box-shadow:0 14px 30px rgba(15,23,42,.32),inset 0 1px 0 rgba(255,255,255,.04)}
+.code-panel-head{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.05)}
+.code-panel-title{font-size:8px;text-transform:uppercase;letter-spacing:.9px;color:var(--sub);font-weight:800}
+.code-panel-meta{font-size:7.5px;color:rgba(226,232,240,.62);font-weight:700}
+.code-head-actions{display:flex;gap:4px}
+.code-head-btn{padding:4px 6px;border:1px solid rgba(148,163,184,.35);background:rgba(255,255,255,.04);color:#cbd5e1;font-size:7px;font-weight:700;cursor:pointer}
+.code-editor-wrap{display:flex;flex-direction:column;height:100%}
+.code-stage{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);flex:1;min-height:0;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
+.code-lines{padding:12px 5px 12px 0;text-align:right;font-size:9px;line-height:16px;user-select:none;overflow:hidden;background:#09101f;color:rgba(148,163,184,.68);border-right:1px solid rgba(255,255,255,.04)}
+.code-lines div{height:16px}.code-lines .active{color:#fff}
+.code-canvas{position:relative;min-height:0;background:#0b1020}
+.code-scroll{position:absolute;inset:0;overflow:hidden}
+.code-scroll::-webkit-scrollbar,.code-preview-frame::-webkit-scrollbar{width:6px;height:6px}
+.code-scroll::-webkit-scrollbar-thumb,.code-preview-frame::-webkit-scrollbar-thumb{background:rgba(148,163,184,.22);border-radius:4px}
+.code-layer,.code-input{margin:0;min-height:100%;padding:12px 12px 16px;font-size:10px;line-height:16px;white-space:pre;tab-size:2;font-family:inherit}
+.code-layer{position:absolute;inset:0;pointer-events:none;color:#dbeafe;background:transparent;transform:translate(0,0);will-change:transform}
+.code-layer .tag{color:#7dd3fc}.code-layer .attr{color:#f9a8d4}.code-layer .str{color:#86efac}.code-layer .com{color:#64748b;font-style:italic}.code-layer .txt{color:#e2e8f0}.code-layer .kw{color:#c4b5fd}.code-layer .num{color:#fca5a5}
+.code-input{position:absolute;inset:0;background:transparent;color:transparent;caret-color:#fff;outline:none;overflow:auto;resize:none;border:none}
+.code-input::selection{background:rgba(96,165,250,.28)}
+.code-status{display:flex;justify-content:space-between;gap:8px;padding:9px 11px;border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.03);font-size:7.5px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.45px}
+.code-status span strong{color:#fff;font-weight:800}
+.code-preview{display:flex;flex-direction:column;height:100%}
+.code-preview-frame{flex:1;background:#fff;border:none;width:100%}
+.code-prompt{position:absolute;left:10px;right:10px;top:92px;z-index:95;background:#0b1020;border:1px solid rgba(148,163,184,.3);padding:10px;display:none;flex-direction:column;gap:8px}
+.code-prompt.on{display:flex}
+.code-prompt .tit{font-size:8px;color:#cbd5e1;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.code-prompt input{background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.3);color:#fff;padding:8px;font-size:10px;outline:none}
+.code-prompt .row{display:flex;justify-content:flex-end;gap:6px}
+.code-prompt button{padding:6px 10px;border:none;background:#1e293b;color:#fff;font-size:8px;cursor:pointer}
+.code-prompt button.pri{background:#2563eb}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -529,6 +571,13 @@ input:focus,textarea:focus{border-color:rgba(167,139,250,.5)!important;backgroun
 #homePages{flex:1;display:flex;overflow:hidden;position:relative}
 .homePage{min-width:100%;display:flex;flex-direction:column;transition:transform .32s cubic-bezier(.4,0,.2,1)}
 .homePage .hdate{margin:10px 14px 6px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;letter-spacing:.2px;font-weight:400}
+.home-search-wrap{padding:0 12px 6px}
+.home-search{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(148,163,184,.28);color:#fff;padding:8px 10px;font-size:9px;outline:none}
+.recent-apps{display:none;gap:6px;overflow-x:auto;padding:0 12px 6px}
+.recent-apps.on{display:flex}
+.recent-apps::-webkit-scrollbar{display:none}
+.recent-chip{display:flex;align-items:center;gap:6px;padding:5px 9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:8px;color:#fff;white-space:nowrap;cursor:pointer}
+.recent-chip b{font-size:11px}
 #pageDotsBar{display:flex;justify-content:center;align-items:center;gap:5px;height:14px;flex-shrink:0}
 .pgdot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);transition:.2s;cursor:pointer}
 .pgdot.on{background:#fff;width:14px;border-radius:3px}
@@ -638,6 +687,8 @@ body.drag-mode .drop-overlay{opacity:1}
 <!-- HOME -->
 <div id="home" class="gone">
   <div class="hdate" id="hdate"></div>
+  <div class="home-search-wrap"><input class="home-search" id="homeSearch" placeholder="Search apps…"></div>
+  <div class="recent-apps" id="recentApps"></div>
   <div class="drag-hint-banner">Shift+hold active · Drag apps to rearrange · Drop on page dots to move pages</div>
   <div id="homePages">
     <!-- Page 0: Widgets + Apps (dynamic) -->
@@ -967,6 +1018,54 @@ body.drag-mode .drop-overlay{opacity:1}
   </div>
 </div>
 
+<!-- CODE -->
+<div class="app" id="aCode">
+  <div class="ah"><button class="bk" id="bkCode">‹ Back</button><div class="atit">💻 Code Studio</div><button class="bk" id="codeRunBtn" style="color:#60a5fa">Run</button></div>
+  <div class="ac" style="padding:0">
+    <div class="code-shell">
+      <div class="code-file-tabs" id="codeTabs"></div>
+      <div class="code-prompt" id="codePrompt">
+        <div class="tit" id="codePromptTitle">Input</div>
+        <input id="codePromptInput" placeholder="">
+        <div class="row"><button id="codePromptCancel">Cancel</button><button class="pri" id="codePromptOk">OK</button></div>
+      </div>
+      <div class="code-workspace">
+        <div class="code-panel">
+          <div class="code-panel-head">
+            <span class="code-panel-title" id="codePanelTitle">index.html</span>
+            <div class="code-head-actions">
+              <button class="code-head-btn" id="codeFormatBtn">Format</button>
+              <button class="code-head-btn" id="codeFindBtn">Find</button>
+              <button class="code-head-btn" id="codeDownloadBtn">Export</button>
+            </div>
+            <span class="code-panel-meta" id="codePanelMeta">HTML · 1 line</span>
+          </div>
+          <div class="code-editor-wrap">
+            <div class="code-stage">
+              <div class="code-lines" id="codeLines"></div>
+              <div class="code-canvas">
+                <div class="code-scroll" id="codeScroll">
+                  <pre class="code-layer" id="codeHighlight"></pre>
+                  <textarea spellcheck="false" class="code-input" id="codeInput"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="code-status"><span id="codeCursor">Ln <strong>1</strong>, Col <strong>1</strong></span><span id="codeStatusMeta">HTML</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CODE PREVIEW -->
+<div class="app" id="aPreview">
+  <div class="ah"><button class="bk" id="bkPreview">‹ Back</button><div class="atit">▶ App Preview</div><button class="bk" id="previewPermBtn" style="color:#34d399;font-size:9px">Perms</button><button class="bk" id="previewReloadBtn" style="color:#60a5fa">Reload</button></div>
+  <div class="ac" style="padding:0;display:flex;min-height:0">
+    <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen"></iframe>
+  </div>
+</div>
+
 <!-- SETTINGS -->
 <div class="app" id="aSettings">
   <div class="ah"><button class="bk" id="bkSet">‹ Back</button><div class="atit">⚙ Settings</div></div>
@@ -1022,6 +1121,23 @@ body.drag-mode .drop-overlay{opacity:1}
     {id:'wbt',  label:'Bitcoin', icon:'₿'},
   ];
   let widgetVisible={wt:true,ww:true,wai:true,wbt:true};
+  let recentAppsArr=[];
+  let appSearchQuery='';
+
+  function renderRecentApps(){
+    const wrap=D.getElementById('recentApps');
+    if(!wrap)return;
+    wrap.innerHTML='';
+    const list=recentAppsArr.slice(0,6).map(id=>APPS.find(a=>a.id===id)).filter(Boolean);
+    wrap.classList.toggle('on',list.length>0);
+    list.forEach(a=>{
+      const el=D.createElement('button');
+      el.className='recent-chip';
+      el.innerHTML=`<b>${a.icon}</b><span>${a.label}</span>`;
+      el.onclick=()=>openApp(a.id);
+      wrap.appendChild(el);
+    });
+  }
 
   /* --- Render page dots --- */
   function renderPageDots(){
@@ -1041,6 +1157,7 @@ body.drag-mode .drop-overlay{opacity:1}
     const pages=D.querySelectorAll('.homePage');
     pages.forEach((p,i)=>p.style.transform=`translateX(${(i-currentPage)*100}%)`);
     renderPageDots();
+    savePrefs();
   }
 
   /* --- Build a page element --- */
@@ -1090,7 +1207,10 @@ body.drag-mode .drop-overlay{opacity:1}
         grid=g;
         grid.innerHTML='';
       }
-      (pageApps[pi]||[]).forEach(aid=>{
+      const sourceApps=(pi===0 && appSearchQuery.trim())
+        ? APPS.filter(a=>a.label.toLowerCase().includes(appSearchQuery.toLowerCase())||a.id.toLowerCase().includes(appSearchQuery.toLowerCase())).map(a=>a.id)
+        : (pageApps[pi]||[]);
+      sourceApps.forEach(aid=>{
         const a=APPS.find(x=>x.id===aid);
         if(!a)return;
         const el=buildAppItem(a,pi);
@@ -1117,6 +1237,16 @@ body.drag-mode .drop-overlay{opacity:1}
 
   /* Initial build */
   rebuildGrids();
+  renderRecentApps();
+  const homeSearchEl=D.getElementById('homeSearch');
+  homeSearchEl.oninput=function(){appSearchQuery=this.value.trim();currentPage=0;rebuildGrids();goToPage(0);};
+  homeSearchEl.onkeydown=e=>{
+    if(e.key==='Enter'&&appSearchQuery){
+      const first=APPS.find(a=>a.label.toLowerCase().includes(appSearchQuery.toLowerCase())||a.id.toLowerCase().includes(appSearchQuery.toLowerCase()));
+      if(first)openApp(first.id);
+    }
+    if(e.key==='Escape'){homeSearchEl.value='';appSearchQuery='';rebuildGrids();}
+  };
 
   /* ── Dock ── */
   D.querySelectorAll('.db[data-ap]').forEach(b=>b.onclick=()=>openApp(b.dataset.ap));
@@ -1331,6 +1461,7 @@ body.drag-mode .drop-overlay{opacity:1}
 
     cancelDrag();
     rebuildGrids();
+    savePrefs();
   }
 
   function cancelDrag(){
@@ -1415,6 +1546,7 @@ body.drag-mode .drop-overlay{opacity:1}
     rebuildGrids();
     setOverlays(true);
     goToPage(pageCount-1);
+    savePrefs();
   };
 
   /* ════════════════════════════════════════
@@ -1425,6 +1557,7 @@ body.drag-mode .drop-overlay{opacity:1}
       const el=D.getElementById(w.id);
       if(el)el.style.display=widgetVisible[w.id]===false?'none':'';
     });
+    savePrefs();
   }
 
   function openWidgetCustom(){
@@ -1459,6 +1592,9 @@ body.drag-mode .drop-overlay{opacity:1}
       onClose(currentApp);
     }
     currentApp=id;
+    recentAppsArr=[id,...recentAppsArr.filter(x=>x!==id)];
+    renderRecentApps();
+    savePrefs();
     const el=D.getElementById('a'+cap(id));
     el.style.transform='translateX(22px) scale(.97)';
     el.style.opacity='0';
@@ -1482,8 +1618,9 @@ body.drag-mode .drop-overlay{opacity:1}
   const bkMap={bkTimer:'timer',bkNotes:'notes',bkWeather:'weather',bkMusic:'music',bkCalc:'calc',
     bkCal:'calendar',bkTodo:'todo',bkCon:'contacts',bkGal:'gallery',bkSW:'stopwatch',
     bkQR:'qr',bkHlth:'health',bkAi:'ai',bkCrypto:'crypto',
-    bkYT:'youtube',bkSpotify:'spotify',bkReddit:'reddit',bkNews:'news',bkSet:'settings'};
+    bkYT:'youtube',bkSpotify:'spotify',bkReddit:'reddit',bkNews:'news',bkCode:'code',bkSet:'settings'};
   Object.keys(bkMap).forEach(k=>{const b=D.getElementById(k);if(b)b.onclick=goHome;});
+  D.getElementById('bkPreview').onclick=()=>openApp('code');
 
   /* ── Widget taps ── */
   D.getElementById('wt').onclick=()=>openApp('timer');
@@ -1635,6 +1772,11 @@ body.drag-mode .drop-overlay{opacity:1}
         accent:D.documentElement.style.getPropertyValue('--acc')||'#a78bfa',
         notifEnabled,dndEnabled,pinRequired,
         togDark:D.getElementById('togDark').classList.contains('on'),
+        widgetVisible,
+        pageCount,
+        pageApps:pageApps.map(p=>(p||[]).filter(id=>APPS.some(a=>a.id===id))),
+        currentPage,
+        recentAppsArr:recentAppsArr.filter(id=>APPS.some(a=>a.id===id)).slice(0,8),
       };
       localStorage.setItem(LS_KEY,JSON.stringify(prefs));
     }catch{}
@@ -1662,6 +1804,21 @@ body.drag-mode .drop-overlay{opacity:1}
       if(p.togDark===false){
         D.getElementById('togDark').classList.remove('on');
         D.body.style.filter='brightness(1.35) saturate(.7)';
+      }
+      if(p.widgetVisible&&typeof p.widgetVisible==='object'){
+        widgetVisible={...widgetVisible,...p.widgetVisible};
+        applyWidgetVisibility();
+      }
+      if(Array.isArray(p.pageApps)&&p.pageApps.length){
+        pageApps=p.pageApps.map(pg=>(pg||[]).filter(id=>APPS.some(a=>a.id===id)));
+        pageCount=Math.max(1,pageApps.length);
+        currentPage=Math.max(0,Math.min(Number.isInteger(p.currentPage)?p.currentPage:0,pageCount-1));
+        rebuildGrids();
+        goToPage(currentPage);
+      }
+      if(Array.isArray(p.recentAppsArr)){
+        recentAppsArr=p.recentAppsArr.filter(id=>APPS.some(a=>a.id===id)).slice(0,8);
+        renderRecentApps();
       }
     }catch{}
   }
@@ -1706,6 +1863,10 @@ body.drag-mode .drop-overlay{opacity:1}
     todos=[{id:1,text:'Add your first task',done:false,pri:false}];
     // Reset UI
     wallIdx=0;applyWall(0);notifEnabled=true;dndEnabled=false;pinRequired=true;
+    widgetVisible={wt:true,ww:true,wai:true,wbt:true};
+    pageCount=1;currentPage=0;pageApps=[APPS.map(a=>a.id)];
+    recentAppsArr=[];
+    rebuildGrids();goToPage(0);renderRecentApps();
     D.getElementById('togNotif').classList.add('on');
     D.getElementById('togDND').classList.remove('on');
     D.getElementById('togPIN').classList.add('on');
@@ -2386,6 +2547,337 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
   });
   D.getElementById('newsRefresh').onclick=()=>loadNews();
 
+  /* ══ CODE STUDIO ══ */
+  const CODE_KEY='pipphone_code_doc';
+  const defaultCode=`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Floating Phone Studio</title>
+  </head>
+  <body>
+    <main>
+      <h1>Hello from inside the phone</h1>
+      <p>Edit this HTML and watch the preview update live.</p>
+    </main>
+  </body>
+</html>`;
+  const codeInput=D.getElementById('codeInput');
+  const codeHighlight=D.getElementById('codeHighlight');
+  const codeLines=D.getElementById('codeLines');
+  const codeScroll=D.getElementById('codeScroll');
+  const codePreviewFrame=D.getElementById('codePreviewFrame');
+  const codeTabs=D.getElementById('codeTabs');
+  const codePrompt=D.getElementById('codePrompt');
+  const codePromptTitle=D.getElementById('codePromptTitle');
+  const codePromptInput=D.getElementById('codePromptInput');
+  let codePromptCb=null;
+  const CODE_FILES_DEFAULT={
+    'index.html':defaultCode,
+    'style.css':`body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:#fff;
+}
+
+main{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
+
+.card{
+  padding:24px;
+  border-radius:24px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 20px 60px rgba(15,23,42,.35);
+}`,
+    'app.js':`const root=document.querySelector('main');
+
+const card=document.createElement('section');
+card.className='card';
+card.innerHTML='<h1>Live preview ready</h1><p>Edit any tab and press Run to refresh.</p>';
+
+root.appendChild(card);`
+  };
+  let codeFiles;
+  try{
+    const saved=JSON.parse(localStorage.getItem(CODE_KEY)||'null');
+    codeFiles=saved&&typeof saved==='object'?{...CODE_FILES_DEFAULT,...saved}:null;
+  }catch{codeFiles=null;}
+  if(!codeFiles)codeFiles={...CODE_FILES_DEFAULT};
+  function extFromName(name){const p=name.split('.');return (p[p.length-1]||'').toLowerCase();}
+  function langFromExt(ext){return ext==='html'?'HTML':ext==='css'?'CSS':ext==='js'?'JavaScript':'Plain Text';}
+  function tabClassFromExt(ext){return ext==='html'?'html':ext==='css'?'css':ext==='js'?'js':'other';}
+  function openCodePrompt(title,placeholder,initial,cb){
+    codePromptTitle.textContent=title;
+    codePromptInput.placeholder=placeholder||'';
+    codePromptInput.value=initial||'';
+    codePrompt.classList.add('on');
+    codePromptCb=cb;
+    setTimeout(()=>{codePromptInput.focus();codePromptInput.select();},20);
+  }
+  function closeCodePrompt(){codePrompt.classList.remove('on');codePromptCb=null;}
+  let activeCodeFile='index.html';
+  function escCode(str){return str.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+  function markCode(str){
+    return escCode(str);
+  }
+  function formatTag(tag){
+    if(tag.startsWith('<!--'))return `<span class="com">${markCode(tag)}</span>`;
+    const m=tag.match(/^(<\/?)([A-Za-z][\w:-]*)([\s\S]*?)(\/?>)$/);
+    if(!m)return markCode(tag);
+    const [,open,name,attrs,close]=m;
+    let out=`${markCode(open)}<span class="tag">${markCode(name)}</span>`;
+    const attrRe=/([^\s=/>]+)(\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/g;
+    let idx=0,match;
+    while((match=attrRe.exec(attrs))){
+      out+=markCode(attrs.slice(idx,match.index));
+      out+=`<span class="attr">${markCode(match[1])}</span>`;
+      if(match[2]){
+        const eq=match[2].match(/^(\s*=\s*)([\s\S]+)$/);
+        if(eq)out+=`${markCode(eq[1])}<span class="str">${markCode(eq[2])}</span>`;
+      }
+      idx=match.index+match[0].length;
+    }
+    out+=markCode(attrs.slice(idx));
+    out+=markCode(close);
+    return out;
+  }
+  function highlightHTML(code){
+    const parts=[];
+    const tokenRe=/(<!--[\s\S]*?-->|<\/?[A-Za-z][^>]*>)/g;
+    let last=0,match;
+    while((match=tokenRe.exec(code))){
+      if(match.index>last)parts.push(`<span class="txt">${markCode(code.slice(last,match.index))}</span>`);
+      parts.push(formatTag(match[0]));
+      last=match.index+match[0].length;
+    }
+    if(last<code.length)parts.push(`<span class="txt">${markCode(code.slice(last))}</span>`);
+    return parts.join('')||'<span class="txt"> </span>';
+  }
+  function highlightJS(code){
+    const kw=new Set(['const','let','var','function','return','if','else','for','while','new','class','document','window','import','from','export','default','await','async']);
+    const tokenRe=/(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|\b[A-Za-z_$][\w$]*\b|\b\d+(?:\.\d+)?\b)/g;
+    const out=[];let last=0,m;
+    while((m=tokenRe.exec(code))){
+      if(m.index>last)out.push(`<span class="txt">${markCode(code.slice(last,m.index))}</span>`);
+      const t=m[0];
+      if(t.startsWith('//')||t.startsWith('/*'))out.push(`<span class="com">${markCode(t)}</span>`);
+      else if(t.startsWith('"')||t.startsWith("'")||t.startsWith('`'))out.push(`<span class="str">${markCode(t)}</span>`);
+      else if(/^\d/.test(t))out.push(`<span class="num">${markCode(t)}</span>`);
+      else if(kw.has(t))out.push(`<span class="kw">${markCode(t)}</span>`);
+      else out.push(`<span class="txt">${markCode(t)}</span>`);
+      last=m.index+t.length;
+    }
+    if(last<code.length)out.push(`<span class="txt">${markCode(code.slice(last))}</span>`);
+    return out.join('')||'<span class="txt"> </span>';
+  }
+  function highlightCSS(code){
+    const tokenRe=/(\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|#[0-9a-fA-F]{3,8}\b|\b\d+(?:\.\d+)?(?:px|rem|em|vh|vw|%)?\b|[.#]?[A-Za-z_-][\w-]*(?=\s*\{)|[A-Za-z-]+(?=\s*:))/g;
+    const out=[];let last=0,m;
+    while((m=tokenRe.exec(code))){
+      if(m.index>last)out.push(`<span class="txt">${markCode(code.slice(last,m.index))}</span>`);
+      const t=m[0];
+      if(t.startsWith('/*'))out.push(`<span class="com">${markCode(t)}</span>`);
+      else if(t.startsWith('"')||t.startsWith("'"))out.push(`<span class="str">${markCode(t)}</span>`);
+      else if(/^#([0-9a-f]{3,8})$/i.test(t)||/^\d/.test(t))out.push(`<span class="num">${markCode(t)}</span>`);
+      else if(/[.#]/.test(t[0]))out.push(`<span class="kw">${markCode(t)}</span>`);
+      else out.push(`<span class="attr">${markCode(t)}</span>`);
+      last=m.index+t.length;
+    }
+    if(last<code.length)out.push(`<span class="txt">${markCode(code.slice(last))}</span>`);
+    return out.join('')||'<span class="txt"> </span>';
+  }
+  function currentCode(){return codeFiles[activeCodeFile]||'';}
+  function saveCodeFiles(){try{localStorage.setItem(CODE_KEY,JSON.stringify(codeFiles));}catch{}}
+  function updateCursor(){
+    const pos=codeInput.selectionStart;
+    const pre=codeInput.value.slice(0,pos);
+    const ln=(pre.match(/\n/g)||[]).length+1;
+    const col=pos-(pre.lastIndexOf('\n'))||1;
+    D.getElementById('codeCursor').innerHTML=`Ln <strong>${ln}</strong>, Col <strong>${col}</strong>`;
+  }
+  function syncScroll(){
+    codeHighlight.style.transform=`translate(${-codeInput.scrollLeft}px,${-codeInput.scrollTop}px)`;
+    codeLines.scrollTop=codeInput.scrollTop;
+  }
+  function buildPreviewDoc(){
+    const html=codeFiles['index.html']||'';
+    const css=`<style>${codeFiles['style.css']||''}</style>`;
+    const js=`<script>${(codeFiles['app.js']||'').replace(/<\/script>/gi,'<\\/script>')}<\/script>`;
+    if(/<\/head>/i.test(html)&&/<\/body>/i.test(html))return html.replace(/<\/head>/i,css+'</head>').replace(/<\/body>/i,js+'</body>');
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8">${css}</head><body>${html}${js}</body></html>`;
+  }
+  function renderTabs(){
+    codeTabs.innerHTML='';
+    Object.keys(codeFiles).forEach(name=>{
+      const ext=extFromName(name);
+      const btn=D.createElement('button');
+      btn.className='code-file-tab '+tabClassFromExt(ext)+(name===activeCodeFile?' active':'');
+      const title=D.createElement('span');
+      title.textContent=name;
+      const close=D.createElement('button');
+      close.className='code-tab-close';
+      close.textContent='×';
+      close.onclick=(e)=>{
+        e.stopPropagation();
+        const keys=Object.keys(codeFiles);
+        if(keys.length<=1){showNotif({icon:'⚠️',title:'Cannot close',body:'At least one file is required'});return;}
+        const idx=keys.indexOf(name);
+        delete codeFiles[name];
+        if(activeCodeFile===name){
+          const next=Object.keys(codeFiles)[Math.max(0,Math.min(idx,Object.keys(codeFiles).length-1))];
+          activeCodeFile=next;
+        }
+        saveCodeFiles();
+        renderCode();
+      };
+      btn.appendChild(title);
+      btn.appendChild(close);
+      btn.onclick=()=>{
+        codeFiles[activeCodeFile]=codeInput.value;
+        activeCodeFile=name;
+        renderCode();
+        codeInput.focus();
+      };
+      codeTabs.appendChild(btn);
+    });
+    const addBtn=D.createElement('button');
+    addBtn.className='code-tab-add';
+    addBtn.textContent='+';
+    addBtn.onclick=()=>{
+      openCodePrompt('Create file','e.g. page.html, style.css, app.js','new-file.txt',(raw)=>{
+        const name=(raw||'').trim();
+        if(!name)return;
+        if(codeFiles[name]){showNotif({icon:'⚠️',title:'File exists',body:'Choose another file name'});return;}
+        codeFiles[name]='';
+        activeCodeFile=name;
+        saveCodeFiles();
+        renderCode();
+        codeInput.focus();
+      });
+    };
+    codeTabs.appendChild(addBtn);
+  }
+  function renderCode(runPreview=false){
+    const value=currentCode();
+    const prevSelStart=codeInput.selectionStart||0;
+    const prevSelEnd=codeInput.selectionEnd||0;
+    renderTabs();
+    if(codeInput.value!==value){
+      codeInput.value=value;
+      codeInput.selectionStart=Math.min(prevSelStart,value.length);
+      codeInput.selectionEnd=Math.min(prevSelEnd,value.length);
+    }
+    const lines=value.split('\n');
+    const currentLine=(value.slice(0,codeInput.selectionStart).match(/\n/g)||[]).length+1;
+    const ext=extFromName(activeCodeFile);
+    codeHighlight.innerHTML=ext==='html'?highlightHTML(value):ext==='css'?highlightCSS(value):highlightJS(value);
+    codeLines.innerHTML=lines.map((_,i)=>`<div class="${i+1===currentLine?'active':''}">${i+1}</div>`).join('');
+    D.getElementById('codePanelTitle').textContent=activeCodeFile;
+    D.getElementById('codePanelMeta').textContent=`${langFromExt(ext)} · ${lines.length} ${lines.length===1?'line':'lines'}`;
+    D.getElementById('codeStatusMeta').textContent=`${langFromExt(ext)}`;
+    updateCursor();
+    syncScroll();
+    if(runPreview)codePreviewFrame.srcdoc=buildPreviewDoc();
+  }
+  function formatCurrentFile(){
+    const ext=extFromName(activeCodeFile);
+    const src=codeInput.value;
+    if(ext==='html'){
+      const lines=src.split('\n').map(l=>l.trim()).filter((l,i,a)=>l||i<a.length-1);
+      let indent=0;const out=[];
+      lines.forEach(line=>{
+        if(/^<\//.test(line))indent=Math.max(0,indent-1);
+        out.push('  '.repeat(indent)+line);
+        if(/^<(?!\/|!)([^>]+[^/])>$/.test(line)&&!/<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)(\s|>|\/)/i.test(line))indent++;
+      });
+      codeInput.value=out.join('\n');
+    }else if(ext==='css'){
+      codeInput.value=src
+        .replace(/\s*{\s*/g,' {\n  ')
+        .replace(/;\s*/g,';\n  ')
+        .replace(/\s*}\s*/g,'\n}\n')
+        .replace(/\n{3,}/g,'\n\n')
+        .trim();
+    }else if(ext==='js'){
+      codeInput.value=src
+        .replace(/;\s*/g,';\n')
+        .replace(/\{\s*/g,'{\n')
+        .replace(/\s*\}/g,'\n}')
+        .replace(/\n{3,}/g,'\n\n')
+        .trim();
+    }
+    codeFiles[activeCodeFile]=codeInput.value;
+    saveCodeFiles();
+    renderCode();
+  }
+  function findInCurrentFile(){
+    openCodePrompt('Find in file','Text to find','',(q)=>{
+      if(!q)return;
+      const idx=codeInput.value.toLowerCase().indexOf(q.toLowerCase(),codeInput.selectionEnd||0);
+      const start=idx>=0?idx:codeInput.value.toLowerCase().indexOf(q.toLowerCase());
+      if(start<0){showNotif({icon:'🔎',title:'Not found',body:'No match in current file'});return;}
+      codeInput.focus();
+      codeInput.selectionStart=start;
+      codeInput.selectionEnd=start+q.length;
+      renderCode();
+    });
+  }
+  function downloadCurrentFile(){
+    const a=D.createElement('a');
+    a.href=URL.createObjectURL(new Blob([codeInput.value],{type:'text/plain'}));
+    a.download=activeCodeFile;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),600);
+  }
+  codeInput.addEventListener('input',()=>{
+    codeFiles[activeCodeFile]=codeInput.value;
+    saveCodeFiles();
+    renderCode();
+  });
+  codeInput.addEventListener('scroll',syncScroll);
+  codeInput.addEventListener('click',renderCode);
+  codeInput.addEventListener('mouseup',renderCode);
+  codeInput.addEventListener('keyup',updateCursor);
+  codeInput.addEventListener('keydown',e=>{
+    if(e.key==='Tab'){e.preventDefault();const s=codeInput.selectionStart;codeInput.setRangeText('  ',s,s,'end');codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();renderCode();}
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='s'){e.preventDefault();codeFiles[activeCodeFile]=codeInput.value;saveCodeFiles();codePreviewFrame.srcdoc=buildPreviewDoc();showNotif({icon:'💾',title:'Saved',body:`${activeCodeFile} updated`});}
+    if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter','Backspace','Delete'].includes(e.key))setTimeout(renderCode,0);
+  });
+  function runCodeProject(){
+    codeFiles[activeCodeFile]=codeInput.value;
+    saveCodeFiles();
+    codePreviewFrame.srcdoc=buildPreviewDoc();
+  }
+  D.getElementById('codeRunBtn').onclick=()=>{
+    runCodeProject();
+    openApp('preview');
+    showNotif({icon:'▶️',title:'Preview opened',body:'Running current project'});
+  };
+  D.getElementById('codeFormatBtn').onclick=formatCurrentFile;
+  D.getElementById('codeFindBtn').onclick=findInCurrentFile;
+  D.getElementById('codeDownloadBtn').onclick=downloadCurrentFile;
+  D.getElementById('codePromptCancel').onclick=()=>closeCodePrompt();
+  D.getElementById('codePromptOk').onclick=()=>{const cb=codePromptCb;const v=codePromptInput.value;closeCodePrompt();if(cb)cb(v);};
+  codePromptInput.addEventListener('keydown',e=>{if(e.key==='Enter')D.getElementById('codePromptOk').click();if(e.key==='Escape')closeCodePrompt();});
+  D.getElementById('previewReloadBtn').onclick=()=>{runCodeProject();showNotif({icon:'🔄',title:'Preview refreshed',body:'Latest files rendered'});};
+  D.getElementById('previewPermBtn').onclick=async()=>{
+    try{
+      await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+      showNotif({icon:'✅',title:'Permissions granted',body:'Camera & microphone are enabled'});
+    }catch(e){
+      showNotif({icon:'⚠️',title:'Permission blocked',body:(e&&e.message)?e.message:'Allow camera/mic in browser settings'});
+    }
+  };
+  codeScroll.addEventListener('pointerdown',()=>codeInput.focus());
+  renderTabs();
+  renderCode(true);
+
   /* ══ onOpen / onClose ══ */
   let ytLoaded=false, rdLoaded=false, newsLoaded=false, spTab='charts';
   function onOpen(id){
@@ -2397,6 +2889,8 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
     if(id==='spotify')loadSpotify(spTab);
     if(id==='reddit'&&!rdLoaded){rdLoaded=true;loadReddit();}
     if(id==='news'&&!newsLoaded){newsLoaded=true;loadNews();}
+    if(id==='code')setTimeout(()=>codeInput.focus(),80);
+    if(id==='preview')runCodeProject();
   }
   function onClose(id){
     if(id==='music'&&mPlaying){/* keep playing */}
