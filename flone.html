@@ -450,6 +450,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 .code-status span strong{color:#fff;font-weight:800}
 .code-preview{display:flex;flex-direction:column;height:100%}
 .code-preview-frame{flex:1;background:#fff;border:none;width:100%}
+.code-prompt{position:absolute;left:10px;right:10px;top:92px;z-index:95;background:#0b1020;border:1px solid rgba(148,163,184,.3);padding:10px;display:none;flex-direction:column;gap:8px}
+.code-prompt.on{display:flex}
+.code-prompt .tit{font-size:8px;color:#cbd5e1;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.code-prompt input{background:rgba(255,255,255,.05);border:1px solid rgba(148,163,184,.3);color:#fff;padding:8px;font-size:10px;outline:none}
+.code-prompt .row{display:flex;justify-content:flex-end;gap:6px}
+.code-prompt button{padding:6px 10px;border:none;background:#1e293b;color:#fff;font-size:8px;cursor:pointer}
+.code-prompt button.pri{background:#2563eb}
 .ssec{margin-bottom:13px}
 .stit{font-size:8.5px;color:var(--sub);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;padding:0 4px;font-weight:600}
 .si{display:flex;align-items:center;padding:9px 11px;border-radius:13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);margin-bottom:3px;font-size:10px;cursor:pointer;transition:.14s}
@@ -1008,6 +1015,11 @@ body.drag-mode .drop-overlay{opacity:1}
   <div class="ac" style="padding:0">
     <div class="code-shell">
       <div class="code-file-tabs" id="codeTabs"></div>
+      <div class="code-prompt" id="codePrompt">
+        <div class="tit" id="codePromptTitle">Input</div>
+        <input id="codePromptInput" placeholder="">
+        <div class="row"><button id="codePromptCancel">Cancel</button><button class="pri" id="codePromptOk">OK</button></div>
+      </div>
       <div class="code-workspace">
         <div class="code-panel">
           <div class="code-panel-head">
@@ -1039,9 +1051,9 @@ body.drag-mode .drop-overlay{opacity:1}
 
 <!-- CODE PREVIEW -->
 <div class="app" id="aPreview">
-  <div class="ah"><button class="bk" id="bkPreview">‹ Back</button><div class="atit">▶ App Preview</div><button class="bk" id="previewReloadBtn" style="color:#60a5fa">Reload</button></div>
+  <div class="ah"><button class="bk" id="bkPreview">‹ Back</button><div class="atit">▶ App Preview</div><button class="bk" id="previewPermBtn" style="color:#34d399;font-size:9px">Perms</button><button class="bk" id="previewReloadBtn" style="color:#60a5fa">Reload</button></div>
   <div class="ac" style="padding:0;display:flex;min-height:0">
-    <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts"></iframe>
+    <iframe class="code-preview-frame" id="codePreviewFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-downloads" allow="camera; microphone; geolocation; clipboard-read; clipboard-write; fullscreen"></iframe>
   </div>
 </div>
 
@@ -2486,6 +2498,10 @@ allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:n
   const codeScroll=D.getElementById('codeScroll');
   const codePreviewFrame=D.getElementById('codePreviewFrame');
   const codeTabs=D.getElementById('codeTabs');
+  const codePrompt=D.getElementById('codePrompt');
+  const codePromptTitle=D.getElementById('codePromptTitle');
+  const codePromptInput=D.getElementById('codePromptInput');
+  let codePromptCb=null;
   const CODE_FILES_DEFAULT={
     'index.html':defaultCode,
     'style.css':`body{
@@ -2526,6 +2542,15 @@ root.appendChild(card);`
   function extFromName(name){const p=name.split('.');return (p[p.length-1]||'').toLowerCase();}
   function langFromExt(ext){return ext==='html'?'HTML':ext==='css'?'CSS':ext==='js'?'JavaScript':'Plain Text';}
   function tabClassFromExt(ext){return ext==='html'?'html':ext==='css'?'css':ext==='js'?'js':'other';}
+  function openCodePrompt(title,placeholder,initial,cb){
+    codePromptTitle.textContent=title;
+    codePromptInput.placeholder=placeholder||'';
+    codePromptInput.value=initial||'';
+    codePrompt.classList.add('on');
+    codePromptCb=cb;
+    setTimeout(()=>{codePromptInput.focus();codePromptInput.select();},20);
+  }
+  function closeCodePrompt(){codePrompt.classList.remove('on');codePromptCb=null;}
   let activeCodeFile='index.html';
   function escCode(str){return str.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
   function markCode(str){
@@ -2655,16 +2680,16 @@ root.appendChild(card);`
     addBtn.className='code-tab-add';
     addBtn.textContent='+';
     addBtn.onclick=()=>{
-      const raw=prompt('New file name (e.g. page.html, style.css, app.js):','new-file.txt');
-      if(!raw)return;
-      const name=raw.trim();
-      if(!name)return;
-      if(codeFiles[name]){showNotif({icon:'⚠️',title:'File exists',body:'Choose another file name'});return;}
-      codeFiles[name]='';
-      activeCodeFile=name;
-      saveCodeFiles();
-      renderCode();
-      codeInput.focus();
+      openCodePrompt('Create file','e.g. page.html, style.css, app.js','new-file.txt',(raw)=>{
+        const name=(raw||'').trim();
+        if(!name)return;
+        if(codeFiles[name]){showNotif({icon:'⚠️',title:'File exists',body:'Choose another file name'});return;}
+        codeFiles[name]='';
+        activeCodeFile=name;
+        saveCodeFiles();
+        renderCode();
+        codeInput.focus();
+      });
     };
     codeTabs.appendChild(addBtn);
   }
@@ -2722,15 +2747,16 @@ root.appendChild(card);`
     renderCode();
   }
   function findInCurrentFile(){
-    const q=prompt('Find text in current file:','');
-    if(!q)return;
-    const idx=codeInput.value.toLowerCase().indexOf(q.toLowerCase(),codeInput.selectionEnd||0);
-    const start=idx>=0?idx:codeInput.value.toLowerCase().indexOf(q.toLowerCase());
-    if(start<0){showNotif({icon:'🔎',title:'Not found',body:'No match in current file'});return;}
-    codeInput.focus();
-    codeInput.selectionStart=start;
-    codeInput.selectionEnd=start+q.length;
-    renderCode();
+    openCodePrompt('Find in file','Text to find','',(q)=>{
+      if(!q)return;
+      const idx=codeInput.value.toLowerCase().indexOf(q.toLowerCase(),codeInput.selectionEnd||0);
+      const start=idx>=0?idx:codeInput.value.toLowerCase().indexOf(q.toLowerCase());
+      if(start<0){showNotif({icon:'🔎',title:'Not found',body:'No match in current file'});return;}
+      codeInput.focus();
+      codeInput.selectionStart=start;
+      codeInput.selectionEnd=start+q.length;
+      renderCode();
+    });
   }
   function downloadCurrentFile(){
     const a=D.createElement('a');
@@ -2766,7 +2792,18 @@ root.appendChild(card);`
   D.getElementById('codeFormatBtn').onclick=formatCurrentFile;
   D.getElementById('codeFindBtn').onclick=findInCurrentFile;
   D.getElementById('codeDownloadBtn').onclick=downloadCurrentFile;
+  D.getElementById('codePromptCancel').onclick=()=>closeCodePrompt();
+  D.getElementById('codePromptOk').onclick=()=>{const cb=codePromptCb;const v=codePromptInput.value;closeCodePrompt();if(cb)cb(v);};
+  codePromptInput.addEventListener('keydown',e=>{if(e.key==='Enter')D.getElementById('codePromptOk').click();if(e.key==='Escape')closeCodePrompt();});
   D.getElementById('previewReloadBtn').onclick=()=>{runCodeProject();showNotif({icon:'🔄',title:'Preview refreshed',body:'Latest files rendered'});};
+  D.getElementById('previewPermBtn').onclick=async()=>{
+    try{
+      await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+      showNotif({icon:'✅',title:'Permissions granted',body:'Camera & microphone are enabled'});
+    }catch(e){
+      showNotif({icon:'⚠️',title:'Permission blocked',body:(e&&e.message)?e.message:'Allow camera/mic in browser settings'});
+    }
+  };
   codeScroll.addEventListener('pointerdown',()=>codeInput.focus());
   renderTabs();
   renderCode(true);
